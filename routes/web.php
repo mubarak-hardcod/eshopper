@@ -6,6 +6,8 @@ use App\Http\Controllers\mainController;
 use App\Http\Controllers\categorysController;
 use App\Http\Controllers\brandController;
 use App\Http\Controllers\subcategorysController;
+use App\Http\Controllers\productsController;
+
 
 
 
@@ -27,6 +29,10 @@ Route::get('/a', function () {return view('welcome');});
 Route::get('admin', [AdminController::class, 'index']); 
 
 Route::get('/', [mainController::class, 'index']); 
+
+//-------- product result----------------------
+Route::get('products', [mainController::class, 'productresult']); 
+
 Route::get('cate_manage', [categorysController::class, 'index']); 
 
 Route::get('category_manage', [categorysController::class,'index'])->name('category_manage');
@@ -52,3 +58,12 @@ Route::get('sub_categorys_detail/{id}', [subcategorysController::class,'show'])-
 Route::get('sub_categorys_edit/{id}', [subcategorysController::class,'edit'])->name('sub_categorys_edit');
 Route::post('sub_categorys_update/{id}', [subcategorysController::class,'update'])->name('sub_categorys_update');
 Route::post('sub_categorys_delete/{id}', [subcategorysController::class,'destroy'])->name('sub_categorys_delete');
+
+
+Route::any('products_manage', [productsController::class,'index'])->name('products_manage');
+Route::get('products_create', [productsController::class,'create'])->name('products_create');
+Route::post('products_create', [productsController::class,'store'])->name('products_create'); 
+Route::get('products_detail/{id}', [productsController::class,'show'])->name('products_detail');
+Route::get('products_edit/{id}', [productsController::class,'edit'])->name('products_edit');
+Route::post('products_update/{id}', [productsController::class,'update'])->name('products_update');
+Route::post('products_delete/{id}', [productsController::class,'destroy'])->name('products_delete');

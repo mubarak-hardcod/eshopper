@@ -118,12 +118,12 @@
         <a href="#home8" class="list-group-item list-group-item-action bg-light dropdown-toggle" data-toggle="collapse" aria-expanded="false"> Brand</a>
         <ul class="collapse list-unstyled menu" id="home8">
           <li><a href="{{ url('brand_create/')}}" class="list-group-item list-group-item-action bg-light ">Add Brand </a></li>
-          <li><a href="{{ url('brand_index/')}}" class="list-group-item list-group-item-action bg-light ">Brand list</a></li>
+          <li><a href="{{ url('brand_manage/')}}" class="list-group-item list-group-item-action bg-light ">Brand list</a></li>
         </ul>
-        <a href="#home9" class="list-group-item list-group-item-action bg-light dropdown-toggle" data-toggle="collapse" aria-expanded="false"> Post</a>
+        <a href="#home9" class="list-group-item list-group-item-action bg-light dropdown-toggle" data-toggle="collapse" aria-expanded="false"> Products</a>
         <ul class="collapse list-unstyled menu" id="home9">
-          <li><a href="{{ url('post_create/')}}" class="list-group-item list-group-item-action bg-light ">Add Post </a></li>
-          <li><a href="{{ url('post_index/')}}" class="list-group-item list-group-item-action bg-light ">Post list</a></li>
+          <li><a href="{{ url('products_create/')}}" class="list-group-item list-group-item-action bg-light ">Add Products </a></li>
+          <li><a href="{{ url('products_manage/')}}" class="list-group-item list-group-item-action bg-light ">Post Products</a></li>
         </ul>
 
       </div>
