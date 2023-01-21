@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 
-ordersControllerordersControllerclass productsController extends Controller
+class productsController extends Controller
 {
     public function index()
     {
