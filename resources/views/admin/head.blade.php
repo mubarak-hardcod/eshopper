@@ -103,7 +103,7 @@
         <a href="#home6" class="list-group-item list-group-item-action bg-light dropdown-toggle" data-toggle="collapse" aria-expanded="false"> User</a>
         <ul class="collapse list-unstyled menu" id="home6">
           <li><a href="{{ url('user_create/')}}" class="list-group-item list-group-item-action bg-light ">Add User </a></li>
-          <li><a href="{{ url('user_index/')}}" class="list-group-item list-group-item-action bg-light ">User list</a></li>
+          <li><a href="{{ url('user_manage/')}}" class="list-group-item list-group-item-action bg-light ">User list</a></li>
         </ul>
         <a href="#home7" class="list-group-item list-group-item-action bg-light dropdown-toggle" data-toggle="collapse" aria-expanded="false"> Categories</a>
         <ul class="collapse list-unstyled menu" id="home7">
@@ -124,6 +124,11 @@
         <ul class="collapse list-unstyled menu" id="home9">
           <li><a href="{{ url('products_create/')}}" class="list-group-item list-group-item-action bg-light ">Add Products </a></li>
           <li><a href="{{ url('products_manage/')}}" class="list-group-item list-group-item-action bg-light ">Post Products</a></li>
+        </ul>
+        <a href="#home11" class="list-group-item list-group-item-action bg-light dropdown-toggle" data-toggle="collapse" aria-expanded="false"> Orders</a>
+        <ul class="collapse list-unstyled menu" id="home11">
+          <li><a href="{{ url('orders_create/')}}" class="list-group-item list-group-item-action bg-light ">Add Orders </a></li>
+          <li><a href="{{ url('orders_manage/')}}" class="list-group-item list-group-item-action bg-light ">Orders Products</a></li>
         </ul>
 
       </div>

@@ -88,10 +88,14 @@
 							<ul class="nav navbar-nav">
 								<li><a href=""><i class="fa fa-user"></i> Account</a></li>
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
-							</ul>
+								<li><a href="{{url ('/')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li><a href="{{ url('cart') }}" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								@if (Auth::guest())
+								<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
+								@else
+								<li><a  href="{{ route('signout') }}"><i class="fa fa-unlock"></i> Logout</a></li>								
+								@endif
+								</ul>
 						</div>
 					</div>
 				</div>
@@ -112,14 +116,17 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.html">Home</a></li>
+								<li><a href="{{url ('/')}}">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-										<li><a href="product-details.html" class="active">Product Details</a></li> 
-										<li><a href="checkout.html">Checkout</a></li> 
-										<li><a href="cart.html">Cart</a></li> 
-										<li><a href="login.html">Login</a></li> 
+                                        <li><a href="{{url ('products')}}">Products</a></li>
+										<li><a href="{{url ('checkout')}}">Checkout</a></li> 
+										<li><a href="{{ url ('cart')}}" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								@if (Auth::guest())
+								<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
+								@else
+								<li><a  href="{{ route('signout') }}"><i class="fa fa-unlock"></i> Logout</a></li>								
+								@endif
                                     </ul>
                                 </li> 
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
@@ -135,7 +142,11 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+						<form action="{{url ('search')}}" method="POST" enctype="multipart/form-data">
+                            @csrf			
+							<input type="text" placeholder="Search" name='search'/>
+							<button type="submit" class="btn btn-success" style="display: none;">search</button>					
+						</form>
 						</div>
 					</div>
 				</div>
@@ -150,127 +161,45 @@
 					<div class="left-sidebar">
 						<h2>Category</h2>
 						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
+						@foreach($categories as $datas)
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
+										<a data-toggle="collapse" data-parent="#accordian" href="#{{$datas->name}}">
 											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											Sportswear
+											{{$datas->name}}
 										</a>
 									</h4>
 								</div>
-								<div id="sportswear" class="panel-collapse collapse">
-									<div class="panel-body">
-										<ul>
-											<li><a href="">Nike </a></li>
-											<li><a href="">Under Armour </a></li>
-											<li><a href="">Adidas </a></li>
-											<li><a href="">Puma</a></li>
-											<li><a href="">ASICS </a></li>
+								<div id="{{$datas->name}}" class="panel-collapse collapse">
+									<div class="panel-body">										
+									<ul>
+											@foreach($sub_category as $data)
+											@if($data->category_name==$datas->id)
+											<li><a href="{{ url('category/'.$data->slug) }}">{{$data->name}} </a></li>
+											@else											
+											<li style="display: none;"><a href="#"> </a></li>
+											@endif
+											@endforeach
+											
 										</ul>
 									</div>
 								</div>
 							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#mens">
-											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											Mens
-										</a>
-									</h4>
-								</div>
-								<div id="mens" class="panel-collapse collapse">
-									<div class="panel-body">
-										<ul>
-											<li><a href="">Fendi</a></li>
-											<li><a href="">Guess</a></li>
-											<li><a href="">Valentino</a></li>
-											<li><a href="">Dior</a></li>
-											<li><a href="">Versace</a></li>
-											<li><a href="">Armani</a></li>
-											<li><a href="">Prada</a></li>
-											<li><a href="">Dolce and Gabbana</a></li>
-											<li><a href="">Chanel</a></li>
-											<li><a href="">Gucci</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
+							@endforeach		
 							
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#womens">
-											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											Womens
-										</a>
-									</h4>
-								</div>
-								<div id="womens" class="panel-collapse collapse">
-									<div class="panel-body">
-										<ul>
-											<li><a href="">Fendi</a></li>
-											<li><a href="">Guess</a></li>
-											<li><a href="">Valentino</a></li>
-											<li><a href="">Dior</a></li>
-											<li><a href="">Versace</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Kids</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Fashion</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Households</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Interiors</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Clothing</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Bags</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Shoes</a></h4>
-								</div>
-							</div>
 						</div><!--/category-products-->
 					
 						<div class="brands_products"><!--brands_products-->
 							<h2>Brands</h2>
 							<div class="brands-name">
 								<ul class="nav nav-pills nav-stacked">
-									<li><a href=""> <span class="pull-right">(50)</span>Acne</a></li>
-									<li><a href=""> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-									<li><a href=""> <span class="pull-right">(27)</span>Albiro</a></li>
-									<li><a href=""> <span class="pull-right">(32)</span>Ronhill</a></li>
-									<li><a href=""> <span class="pull-right">(5)</span>Oddmolly</a></li>
-									<li><a href=""> <span class="pull-right">(9)</span>Boudestijn</a></li>
-									<li><a href=""> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
+								@foreach($brands as $data)
+									<li><a href="{{ url('brand/'.$data->slug) }}"> <span class="pull-right"></span>{{$data->name}}</a></li>
+									@endforeach
 								</ul>
 							</div>
-						</div><!--/brands_products-->
-						
+						</div><!--/brands_products-->						
 						<div class="price-range"><!--price-range-->
 							<h2>Price Range</h2>
 							<div class="well">
@@ -290,11 +219,10 @@
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-5">
 							<div class="view-product">
-								<img src="{{ asset('images/product-details/1.jpg') }}" alt="" />
+								<img src="{{url('eshopper/images/'.$products->image)}}" alt="" />
 								<h3>ZOOM</h3>
 							</div>
-							<div id="similar-product" class="carousel slide" data-ride="carousel">
-								
+							<div id="similar-product" class="carousel slide" data-ride="carousel">								
 								  <!-- Wrapper for slides -->
 								    <div class="carousel-inner">
 										<div class="item active">
@@ -311,8 +239,7 @@
 										  <a href=""><img src="{{ asset('images/product-details/similar1.jpg') }}" alt=""></a>
 										  <a href=""><img src="{{ asset('images/product-details/similar2.jpg') }}" alt=""></a>
 										  <a href=""><img src="{{ asset('images/product-details/similar3.jpg') }}" alt=""></a>
-										</div>
-										
+										</div>										
 									</div>
 
 								  <!-- Controls -->
@@ -328,23 +255,26 @@
 						<div class="col-sm-7">
 							<div class="product-information"><!--/product-information-->
 								<img src="{{ asset('images/product-details/new.jpg') }}" class="newarrival" alt="" />
-								<h2>Anne Klein Sleeveless Colorblock Scuba</h2>
+								
+								<h2>{{$products->name}}</h2>
 								<p>Web ID: 1089772</p>
 								<img src="{{ asset('images/product-details/rating.png') }}" alt="" />
 								<span>
-									<span>US $59</span>
+									<span>INR &#8377; {{$products->price}}</span>
 									<label>Quantity:</label>
-									<input type="text" value="3" />
-									<button type="button" class="btn btn-fefault cart">
+									<input type="text" value="3" name="quantity" id="quantity"/>
+									<input type="hidden" value="{{$data->id}}" name="product_id" id="product_id">
+									<button type="submit" class="btn btn-fefault cart" value="Add" onclick="addcart()">
 										<i class="fa fa-shopping-cart"></i>
 										Add to cart
 									</button>
 								</span>
-								<p><b>Availability:</b> In Stock</p>
-								<p><b>Condition:</b> New</p>
-								<p><b>Brand:</b> E-SHOPPER</p>
+								<p><b>Availability:</b> {{$products->availability}}</p>
+								<p><b>Condition:</b> {{$products->conditions}}</p>
+								<p><b>Brand:</b>{{$products->brands->name}} </p>
 								<a href=""><img src="{{ asset('images/product-details/share.png') }}" class="share img-responsive"  alt="" /></a>
 							</div><!--/product-information-->
+							
 						</div>
 					</div><!--/product-details-->
 					
@@ -518,7 +448,7 @@
 										<li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
 										<li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
 									</ul>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+									<p>{{$products->description}}</p>
 									<p><b>Write Your Review</b></p>
 									
 									<form action="#">
@@ -792,7 +722,31 @@
 		
 	</footer><!--/Footer-->
 	
+	<script>
+       
+		function addcart(id) {
+			
+            var product_id = $("#product_id").val(); 
+			var quantity = $("#quantity").val();                    
 
+            $.ajax({
+                type: 'post',
+                data: {
+                    product_id: product_id,                   
+                    quantity: quantity,                   
+                    _token: "{{ csrf_token() }}"
+                },
+                url: "{{ url('cart-add') }}",
+                // success: function(response) {
+                //     $('#addcart').modal('hide');
+                //     employeeList();
+                //     alert(response.message);}
+                
+
+            })
+        }
+		
+</script>
   
     <script src="{{ asset('js/jquery.js') }}"></script>
 	<script src="{{ asset('js/price-range.js') }}"></script>

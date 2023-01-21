@@ -13,14 +13,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 
-class productsController extends Controller
+ordersControllerordersControllerclass productsController extends Controller
 {
     public function index()
     {
-        $datas = products::all();
-        // foreach ($datas as $data) {
-        //     $a = json_decode($data->tag_id);
-        // }
+        $datas = products::all();       
         return view('admin.products.index', compact('datas'));
     }
 

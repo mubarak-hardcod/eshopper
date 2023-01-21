@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Cart | E-Shopper</title>
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/prettyPhoto.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/price-range.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Cart | E-Shopper</title>
+	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/prettyPhoto.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/price-range.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/animate.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/main.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
-    <!--[if lt IE 9]>
+	<!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
-    <![endif]-->       
-    <link rel="shortcut icon" href="images/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('images/ico/apple-touch-icon-144-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('images/ico/apple-touch-icon-114-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('images/ico/apple-touch-icon-72-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/ico/apple-touch-icon-57-precomposed.png') }}">
+    <![endif]-->
+	<link rel="shortcut icon" href="images/ico/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('images/ico/apple-touch-icon-144-precomposed.png') }}">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('images/ico/apple-touch-icon-114-precomposed.png') }}">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('images/ico/apple-touch-icon-72-precomposed.png') }}">
+	<link rel="apple-touch-icon-precomposed" href="{{ asset('images/ico/apple-touch-icon-57-precomposed.png') }}">
 </head><!--/head-->
 
 <body>
@@ -51,7 +52,7 @@
 				</div>
 			</div>
 		</div><!--/header_top-->
-		
+
 		<div class="header-middle"><!--header-middle-->
 			<div class="container">
 				<div class="row">
@@ -70,7 +71,7 @@
 									<li><a href="">UK</a></li>
 								</ul>
 							</div>
-							
+
 							<div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
 									DOLLAR
@@ -88,16 +89,20 @@
 							<ul class="nav navbar-nav">
 								<li><a href=""><i class="fa fa-user"></i> Account</a></li>
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a href="{{url ('checkout')}}" class="active">Checkout</a></li> 
+								<li><a href="" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								@if (Auth::guest())
+								<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
+								@else
+								<li><a href="{{ route('signout') }}"><i class="fa fa-unlock"></i> Logout</a></li>
+								@endif
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div><!--/header-middle-->
-	
+
 		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
 				<div class="row">
@@ -112,22 +117,25 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.html">Home</a></li>
+								<li><a href="{{url ('/')}}">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-										<li><a href="product-details.html">Product Details</a></li> 
-										<li><a href="checkout.html">Checkout</a></li> 
-										<li><a href="cart.html" class="active">Cart</a></li> 
-										<li><a href="login.html">Login</a></li> 
-                                    </ul>
-                                </li> 
+									<ul role="menu" class="sub-menu">
+										<li><a href="{{url('products/') }}">Products</a></li>
+										<li><a href="{{url ('checkout')}}" class="active">Checkout</a></li> 
+										<li><a href="{{ url ('cart')}}" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+										@if (Auth::guest())
+										<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
+										@else
+										<li><a href="{{ route('signout') }}"><i class="fa fa-unlock"></i> Logout</a></li>
+										@endif
+									</ul>
+								</li>
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
+									<ul role="menu" class="sub-menu">
+										<li><a href="blog.html">Blog List</a></li>
 										<li><a href="blog-single.html">Blog Single</a></li>
-                                    </ul>
-                                </li> 
+									</ul>
+								</li>
 								<li><a href="404.html">404</a></li>
 								<li><a href="contact-us.html">Contact</a></li>
 							</ul>
@@ -135,7 +143,7 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+							<input type="text" placeholder="Search" />
 						</div>
 					</div>
 				</div>
@@ -147,8 +155,8 @@
 		<div class="container">
 			<div class="breadcrumbs">
 				<ol class="breadcrumb">
-				  <li><a href="#">Home</a></li>
-				  <li class="active">Shopping Cart</li>
+					<li><a href="#">Home</a></li>
+					<li class="active">Shopping Cart</li>
 				</ol>
 			</div>
 			<div class="table-responsive cart_info">
@@ -164,88 +172,44 @@
 						</tr>
 					</thead>
 					<tbody>
+						<?php $sum_tot_Price = 0; ?>
+						@foreach($datas as $data)
 						<tr>
 							<td class="cart_product">
-								<a href=""><img src="{{ asset('images/cart/one.png') }}" alt=""></a>
+								<a href=""><img src="{{url('eshopper/images/'.$data->products->image)}}" alt="" width="100px" height="100px"></a>
 							</td>
 							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
+								<h4><a href="">{{$data->products->name}}</a></h4>
 								<p>Web ID: 1089772</p>
 							</td>
 							<td class="cart_price">
-								<p>$59</p>
+								<input type="hidden" id="price1_{{$data->id}}" value="{{$data->products->price}}">
+								<p id="price_{{$data->id}}">&#8377; {{$data->products->price}}</p>
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
+									<a class="cart_quantity_down" onclick="decrementValue({{$data->id}})" value="-"> - </a>
+									<input class="cart_quantity_input" type="text" name="quantity" value="{{$data->quantity}}" autocomplete="off" id="number_{{$data->id}}" size="2">
+									<a class="cart_quantity_up" onclick="incrementValue({{$data->id}})" value="+"> + </a>
 								</div>
 							</td>
 							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
+								<p class="cart_total_price" id="price_total_{{$data->id}}">&#8377;{{$data->products->price*$data->quantity}}</p>							
+								<?php $sum_tot_Price += $data->products->price * $data->quantity; ?>
+								<input type="hidden" value="{{$sum_tot_Price}}" id="totalprices">					
+								
 							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-
-						<tr>
-							<td class="cart_product">
-								<a href=""><img src="{{ asset('images/cart/two.png') }}" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772</p>
-							</td>
-							<td class="cart_price">
-								<p>$59</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+							<td class="cart_delete">								
+								<a href="{{url('cart-destroy/'.$data->id)}}" class="cart_quantity_delete"><i class="fa fa-times"></i></a>
 							</td>
 						</tr>
-						<tr>
-							<td class="cart_product">
-								<a href=""><img src="{{ asset('images/cart/three.png') }}" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772</p>
-							</td>
-							<td class="cart_price">
-								<p>$59</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
+						@endforeach
 					</tbody>
 				</table>
 			</div>
 		</div>
-	</section> <!--/#cart_items-->
-
+	</section>
+	 <!--/#cart_items-->
 	<section id="do_action">
 		<div class="container">
 			<div class="heading">
@@ -282,7 +246,7 @@
 									<option>Canada</option>
 									<option>Dubai</option>
 								</select>
-								
+
 							</li>
 							<li class="single_field">
 								<label>Region / State:</label>
@@ -296,7 +260,7 @@
 									<option>Canada</option>
 									<option>Dubai</option>
 								</select>
-							
+
 							</li>
 							<li class="single_field zip-field">
 								<label>Zip Code:</label>
@@ -310,13 +274,14 @@
 				<div class="col-sm-6">
 					<div class="total_area">
 						<ul>
-							<li>Cart Sub Total <span>$59</span></li>
-							<li>Eco Tax <span>$2</span></li>
+							<li id="total">Cart Sub Total <span> &#8377;{{ $sum_tot_Price}}</span></li>
+							<li>Eco Tax <span>&#8377; 150</span></li>
 							<li>Shipping Cost <span>Free</span></li>
-							<li>Total <span>$61</span></li>
+							<li>Total <span>&#8377;{{ $sum_tot_Price + 150}}</span></li>
+
 						</ul>
-							<a class="btn btn-default update" href="">Update</a>
-							<a class="btn btn-default check_out" href="">Check Out</a>
+						<!-- <a class="btn btn-default update" href="">Update</a> -->
+						<a class="btn btn-default check_out" href="{{url ('checkout')}}">Check Out</a>
 					</div>
 				</div>
 			</div>
@@ -348,7 +313,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -363,7 +328,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -378,7 +343,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -403,7 +368,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="footer-widget">
 			<div class="container">
 				<div class="row">
@@ -465,11 +430,10 @@
 							</form>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
-		
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">
@@ -478,15 +442,96 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</footer><!--/Footer-->
-	
+	<script>
+		
+		function incrementValue(cart_id) {
+			var cartid = 'number_' + cart_id;
+			var cartprice = 'price1_' + cart_id;
+			var carttotatal = 'price_total_' + cart_id;
+			var value = parseInt(document.getElementById(cartid).value, 10);
+			var price1 = document.getElementById(cartprice).value;					
+			value = isNaN(value) ? 0 : value;
+			if (value < 10) {
+				value++;
+				document.getElementById(cartid).value = value;}
+			var total = value * price1;
+			var totalAmount =document.getElementById('totalprices').value;
+			var FinalAmount = parseInt(price1) + parseInt( totalAmount);
+			document.getElementById('totalprices').value = FinalAmount;
 
+			console.log('price1== ',price1);
+			console.log('FinalAmount== ',FinalAmount);	
 
-    <script src="{{ asset('js/jquery.js') }}"></script>
+			$.ajax({
+				type: 'post',
+				data: {
+					cart_id: cart_id,
+					item_quantity: value,
+					_token: "{{ csrf_token() }}"
+				},
+				url: "{{ url('cart-update') }}",
+				success: function(data) {
+					document.getElementById(carttotatal).innerHTML = '{{DEFAULT_CURRENCY}}' + total;
+				}
+
+			})
+
+		}
+
+		function decrementValue(cart_id) {
+            var cartid = 'number_' + cart_id;
+            var cartprice = 'price1_' + cart_id;
+            var carttotatal = 'price_total_' + cart_id;
+            var value = parseInt(document.getElementById(cartid).value, 10);
+            var price1 = document.getElementById(cartprice).value;
+            value = isNaN(value) ? 0 : value;
+            if (value > 1) {
+                value--;
+                document.getElementById(cartid).value = value;
+            }
+            var total = value * price1;
+			var totalAmount =document.getElementById('totalprices').value;
+			var FinalAmount = parseInt(price1) - parseInt( totalAmount);
+			document.getElementById('totalprices').value = FinalAmount;
+
+			console.log('price1== ',price1);
+			console.log('FinalAmount== ',FinalAmount);
+            $.ajax({
+                type: 'post',
+                data: {
+                    cart_id: cart_id,
+                    item_quantity: value,
+                    _token: "{{ csrf_token() }}"
+                },
+                url: "{{ url('cart-update') }}",
+                success: function(data) {
+                    document.getElementById(carttotatal).innerHTML = '{{DEFAULT_CURRENCY}}' + total;
+                }
+
+            })
+
+        }
+		function itemdelete(id) {
+			// var id=document.getElementById('item').value;	
+			console.log("ssss", id);
+			$.ajax({
+				type: 'post',
+				data: {
+					id: id,
+					_token: "{{ csrf_token() }}"
+				},
+				url: "{{ url('cart-destroy') }}",
+
+			})
+		}
+	</script>
+	<script src="{{ asset('js/jquery.js') }}"></script>
 	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
+	<script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+	<script src="{{ asset('js/main.js') }}"></script>
 </body>
+
 </html>

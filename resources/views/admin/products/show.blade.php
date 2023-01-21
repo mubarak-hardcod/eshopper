@@ -38,11 +38,15 @@
                 </tr>
                 <tr>
                     <td>Brand</td>
-                    <td>{{$data->categorys->name}}</td>                    
+                    <td>{{$data->brands->name}}</td>                    
                 </tr> 
                 <tr>
                     <td>Category</td>
-                    <td>{{$data->brands->name}}</td>                    
+                    <td>{{$data->categorys->name}}</td>                    
+                </tr> 
+                <tr>
+                    <td>Sub-Category</td>
+                    <td>{{$data->sub_categorys->name}}</td>                    
                 </tr> 
                 <tr>
                     <td>Image</td>
@@ -55,7 +59,8 @@
                 <tr>
                     <td>Updated at</td>
                     <td>{{$data->updated_at}}</td>                    
-                </tr>              
+                </tr>
+                             
                             
             </tbody>
         </table>

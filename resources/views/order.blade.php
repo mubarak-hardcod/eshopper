@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Login | E-Shopper</title>
+    <title>Checkout | E-Shopper</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/prettyPhoto.css') }}" rel="stylesheet">
@@ -17,7 +17,7 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->       
-    <link rel="shortcut icon" href="{{ asset('images/ico/favicon.ico') }}">
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('images/ico/apple-touch-icon-144-precomposed.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('images/ico/apple-touch-icon-114-precomposed.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('images/ico/apple-touch-icon-72-precomposed.png') }}">
@@ -88,9 +88,12 @@
 							<ul class="nav navbar-nav">
 								<li><a href=""><i class="fa fa-user"></i> Account</a></li>
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.html" class="active"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a href="{{ url ('cart')}}" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								@if (Auth::guest())
+								<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
+								@else
+								<li><a  href="{{ route('signout') }}"><i class="fa fa-unlock"></i> Logout</a></li>								
+								@endif
 							</ul>
 						</div>
 					</div>
@@ -115,11 +118,13 @@
 								<li><a href="index.html">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-										<li><a href="product-details.html">Product Details</a></li> 
-										<li><a href="checkout.html">Checkout</a></li> 
-										<li><a href="cart.html">Cart</a></li> 
-										<li><a href="login.html" class="active">Login</a></li> 
+                                        <li><a href="{{url ('/')}}">Products</a></li>
+										<li><a href="{{ url ('cart')}}" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								@if (Auth::guest())
+								<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
+								@else
+								<li><a  href="{{ route('signout') }}"><i class="fa fa-unlock"></i> Logout</a></li>								
+								@endif
                                     </ul>
                                 </li> 
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
@@ -142,46 +147,9 @@
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
-	
-	<section id="form"><!--form-->
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-4 col-sm-offset-1">
-					<div class="login-form"><!--login form-->
-						<h2>Login to your account</h2>
-						<form  method="POST" action="{{ route('login.custom') }}">
-						@csrf
 
-							<input type="email" placeholder="Email"  name="email"/>
-							<input type="password" placeholder="Password" name="password" />
-							<span>
-								<input type="checkbox" class="checkbox"> 
-								Keep me signed in
-							</span>
-							<button type="submit" class="btn btn-default">Login</button>
-						</form>
-					</div><!--/login form-->
-				</div>
-				<div class="col-sm-1">
-					<h2 class="or">OR</h2>
-				</div>
-				<div class="col-sm-4">
-					<div class="signup-form"><!--sign up form-->
-						<h2>New User Signup!</h2>
-						<form action="{{ route('register.custom') }}" method="POST"  enctype="multipart/form-data">
-						@csrf
-							<input type="text" placeholder="Name" name="name"/>
-							<input type="email" placeholder="Email Address"  name="email"/>
-							<input type="password" placeholder="Password" name="password"/>
-							<button type="submit" class="btn btn-default">Signup</button>
-						</form>
-					</div><!--/sign up form-->
-				</div>
-			</div>
-		</div>
-	</section><!--/form-->
 	
-	
+
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">
 			<div class="container">
@@ -339,13 +307,11 @@
 		</div>
 		
 	</footer><!--/Footer-->
-	
 
-  
+
     <script src="{{ asset('js/jquery.js') }}"></script>
-	<script src="{{ asset('js/price-range.js') }}"></script>
-    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
 	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
     <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
 </body>

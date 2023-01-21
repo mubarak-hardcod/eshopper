@@ -87,9 +87,14 @@
 							<ul class="nav navbar-nav">
 								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a href="{{url ('checkout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li><a href="{{ url ('cart')}}" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								@if (Auth::guest())
+								<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
+								@else
+								<li><a  href="{{ route('signout') }}"><i class="fa fa-unlock"></i> Logout</a></li>								
+								@endif
+
 							</ul>
 						</div>
 					</div>
@@ -111,14 +116,17 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.html" class="active">Home</a></li>
+								<li><a href="{{url ('/')}}" class="active">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="{{url('products/') }}">Products</a></li>
-										<li><a href="product-details.html">Product Details</a></li> 
+                                        <li><a href="{{url('products/') }}">Products</a></li>										
 										<li><a href="checkout.html">Checkout</a></li> 
-										<li><a href="cart.html">Cart</a></li> 
-										<li><a href="login.html">Login</a></li> 
+										<li><a href="{{ url ('cart')}}" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+										@if (Auth::guest())
+								<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
+								@else
+								<li><a  href="{{ route('signout') }}"><i class="fa fa-unlock"></i> Logout</a></li>								
+								@endif
                                     </ul>
                                 </li> 
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
@@ -134,7 +142,11 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+						<form action="{{url ('search')}}" method="POST" enctype="multipart/form-data">
+                            @csrf			
+							<input type="text" placeholder="Search" name='search'/>
+							<button type="submit" class="btn btn-success" style="display: none;">search</button>					
+						</form>
 						</div>
 					</div>
 				</div>
@@ -214,25 +226,26 @@
 					<div class="left-sidebar">
 						<h2>Category</h2>
 						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
-						@foreach($categories as $data)
+						@foreach($categories as $datas)
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#{{$data->name}}">
+										<a data-toggle="collapse" data-parent="#accordian" href="#{{$datas->name}}">
 											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											{{$data->name}}
+											{{$datas->name}}
 										</a>
 									</h4>
 								</div>
-								<div id="{{$data->name}}" class="panel-collapse collapse">
-									<div class="panel-body">
-										
+								<div id="{{$datas->name}}" class="panel-collapse collapse">
+									<div class="panel-body">										
 										<ul>
-											<li><a href="#">Nike </a></li>
-											<li><a href="#">Under Armour </a></li>
-											<li><a href="#">Adidas </a></li>
-											<li><a href="#">Puma</a></li>
-											<li><a href="#">ASICS </a></li>
+											@foreach($sub_category as $data)
+											@if($data->category_name==$datas->id)
+											<li><a href="{{ url('category/'.$data->slug) }}">{{$data->name}} </a></li>
+											@else											
+											<li style="display: none;"><a href="#"> </a></li>
+											@endif
+											@endforeach											
 										</ul>
 									</div>
 								</div>
@@ -246,18 +259,11 @@
 							<div class="brands-name">
 								<ul class="nav nav-pills nav-stacked">
 									@foreach($brands as $data)
-									<li><a href="#"> <span class="pull-right">(50)</span>{{$data->name}}</a></li>
-									@endforeach
-									<!-- <li><a href="#"> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-									<li><a href="#"> <span class="pull-right">(27)</span>Albiro</a></li>
-									<li><a href="#"> <span class="pull-right">(32)</span>Ronhill</a></li>
-									<li><a href="#"> <span class="pull-right">(5)</span>Oddmolly</a></li>
-									<li><a href="#"> <span class="pull-right">(9)</span>Boudestijn</a></li>
-									<li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li> -->
+									<li><a href="{{ url('brand/'.$data->slug) }}"> <span class="pull-right"></span>{{$data->name}}</a></li>
+									@endforeach									
 								</ul>
 							</div>
-						</div><!--/brands_products-->
-						
+						</div><!--/brands_products-->						
 						<div class="price-range"><!--price-range-->
 							<h2>Price Range</h2>
 							<div class="well text-center">
@@ -435,11 +441,7 @@
 						<div class="col-sm-12">
 							<ul class="nav nav-tabs">
 							@foreach($brands as $data)
-								<li class="active"><a href="#tshirt" data-toggle="tab">{{$data->name}}</a></li>
-								<!-- <li><a href="#blazers" data-toggle="tab">Blazers</a></li>
-								<li><a href="#sunglass" data-toggle="tab">Sunglass</a></li>
-								<li><a href="#kids" data-toggle="tab">Kids</a></li>
-								<li><a href="#poloshirt" data-toggle="tab">Polo shirt</a></li> -->
+								<li ><a href="{{ url('brand/'.$data->slug) }}" >{{$data->name}}</a></li>								
 								@endforeach
 							</ul>
 						</div>

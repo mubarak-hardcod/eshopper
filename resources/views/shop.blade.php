@@ -91,7 +91,11 @@
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+								@if (Auth::guest())
+								<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
+								@else
+								<li><a href="{{ route('signout') }}"><i class="fa fa-unlock"></i> Logout</a></li>
+								@endif
 							</ul>
 						</div>
 					</div>
@@ -113,14 +117,18 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.html">Home</a></li>
+								<li><a href="{{url ('/')}}">Home</a></li>
 								<li class="dropdown"><a href="#" class="active">Shop<i class="fa fa-angle-down"></i></a>
 									<ul role="menu" class="sub-menu">
 										<li><a href="{{url ('products')}}" class="active">Products</a></li>
-										<li><a href="product-details.html">Product Details</a></li>
+										<!-- <li><a href="product-details.html">Product Details</a></li> -->
 										<li><a href="checkout.html">Checkout</a></li>
-										<li><a href="cart.html">Cart</a></li>
-										<li><a href="login.html">Login</a></li>
+										<li><a href="{{ url('cart') }}" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+										@if (Auth::guest())
+										<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
+										@else
+										<li><a href="{{ route('signout') }}"><i class="fa fa-unlock"></i> Logout</a></li>
+										@endif
 									</ul>
 								</li>
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
@@ -136,12 +144,11 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-						<form action="{{ route('products_manage') }}" method="GET"  >
-								{{ csrf_field() }}
-							<input type="text" placeholder="q" />
-							<button type="submit" class="btn btn-default" style="display: none;">
-               				<span class="glyphicon glyphicon-search"></span>
-           					</button>
+							<form action="{{url ('search')}}" method="POST" enctype="multipart/form-data">
+								@csrf
+								<input type="text" placeholder="Search" name='search' />
+								<button type="submit" class="btn btn-success" style="display: none;">search</button>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -162,123 +169,43 @@
 					<div class="left-sidebar">
 						<h2>Category</h2>
 						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
+							@foreach($categories as $datas)
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
+										<a data-toggle="collapse" data-parent="#accordian" href="#{{$datas->name}}">
 											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											Sportswear
+											{{$datas->name}}
 										</a>
 									</h4>
 								</div>
-								<div id="sportswear" class="panel-collapse collapse">
+								<div id="{{$datas->name}}" class="panel-collapse collapse">
 									<div class="panel-body">
-										<ul>
-											<li><a href="">Nike </a></li>
-											<li><a href="">Under Armour </a></li>
-											<li><a href="">Adidas </a></li>
-											<li><a href="">Puma</a></li>
-											<li><a href="">ASICS </a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#mens">
-											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											Mens
-										</a>
-									</h4>
-								</div>
-								<div id="mens" class="panel-collapse collapse">
-									<div class="panel-body">
-										<ul>
-											<li><a href="">Fendi</a></li>
-											<li><a href="">Guess</a></li>
-											<li><a href="">Valentino</a></li>
-											<li><a href="">Dior</a></li>
-											<li><a href="">Versace</a></li>
-											<li><a href="">Armani</a></li>
-											<li><a href="">Prada</a></li>
-											<li><a href="">Dolce and Gabbana</a></li>
-											<li><a href="">Chanel</a></li>
-											<li><a href="">Gucci</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
 
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#womens">
-											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											Womens
-										</a>
-									</h4>
-								</div>
-								<div id="womens" class="panel-collapse collapse">
-									<div class="panel-body">
 										<ul>
-											<li><a href="">Fendi</a></li>
-											<li><a href="">Guess</a></li>
-											<li><a href="">Valentino</a></li>
-											<li><a href="">Dior</a></li>
-											<li><a href="">Versace</a></li>
+											@foreach($sub_category as $data)
+											@if($data->category_name==$datas->id)
+											<li><a href="{{ url('category/'.$data->slug) }}">{{$data->name}} </a></li>
+											@else
+											<li style="display: none;"><a href="#"> </a></li>
+											@endif
+											@endforeach
+
 										</ul>
 									</div>
 								</div>
 							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Kids</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Fashion</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Households</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Interiors</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Clothing</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Bags</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Shoes</a></h4>
-								</div>
-							</div>
+							@endforeach
+
 						</div><!--/category-productsr-->
 
 						<div class="brands_products"><!--brands_products-->
 							<h2>Brands</h2>
 							<div class="brands-name">
 								<ul class="nav nav-pills nav-stacked">
-									<li><a href=""> <span class="pull-right">(50)</span>Acne</a></li>
-									<li><a href=""> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-									<li><a href=""> <span class="pull-right">(27)</span>Albiro</a></li>
-									<li><a href=""> <span class="pull-right">(32)</span>Ronhill</a></li>
-									<li><a href=""> <span class="pull-right">(5)</span>Oddmolly</a></li>
-									<li><a href=""> <span class="pull-right">(9)</span>Boudestijn</a></li>
-									<li><a href=""> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
+									@foreach($brands as $data)
+									<li><a href="{{ url('brand/'.$data->slug) }}"> <span class="pull-right"></span>{{$data->name}}</a></li>
+									@endforeach
 								</ul>
 							</div>
 						</div><!--/brands_products-->
@@ -301,12 +228,14 @@
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Features Items</h2>
+						@if(count($products) > 0)
 
 						@foreach($products as $data)
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
+
 										<img src="{{url('eshopper/images/'.$data->image)}}" alt="" />
 										<h2>&#8377;{{$data->price}}</h2>
 										<p>{{$data->name}}</p>
@@ -315,8 +244,11 @@
 									<div class="product-overlay">
 										<div class="overlay-content">
 											<h2>&#8377;{{$data->price}}</h2>
-											<p>{{$data->name}}</p>
-											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											<a href="{{ url('product-detail/'.$data->slug) }}">
+												<p>{{$data->name}}</p>
+											</a>
+											<input type="hidden" value="{{$data->id}}" name="product_id" id="product_id">
+											<button type="submit" class="add-to-cart" value="Add" onclick="addcart({{$data->id}})"><i class="fa fa-shopping-cart"></i>Add to cart</button>
 										</div>
 									</div>
 								</div>
@@ -329,15 +261,17 @@
 							</div>
 						</div>
 						@endforeach
+
 						<div class="d-flex justify-content-center">
-						{{$products->links()}}
+							{{$products->links()}}
 						</div>
-						<!-- <ul class="pagination">
-							<li class="active"><a href="">1</a></li>
-							<li><a href="">2</a></li>
-							<li><a href="">3</a></li>
-							<li><a href="">&raquo;</a></li>
-						</ul> -->
+						@else
+						<div>
+							<h3 class="text-center text-danger">No Result Found</h3>
+						</div>
+						@endif
+
+
 					</div><!--features_items-->
 				</div>
 			</div>
@@ -501,7 +435,29 @@
 		</div>
 
 	</footer><!--/Footer-->
+	<script>
+		function addcart(id) {
+			console.log(id)
+			var product_id = $('.addcart #product_id').val();
+			$.ajax({
+				type: 'post',
+				data: {
+					product_id: id,
+					quantity: 1,
 
+					_token: "{{ csrf_token() }}"
+				},
+				url: "{{ url('cart-add') }}",
+				success: function(response) {
+					$('#addcart').modal('hide');
+					employeeList();
+					alert(response.message);
+				}
+
+
+			})
+		}
+	</script>
 
 
 	<script src="{{ asset('js/jquery.js') }}"></script>

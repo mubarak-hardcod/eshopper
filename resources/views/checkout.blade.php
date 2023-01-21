@@ -23,7 +23,6 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('images/ico/apple-touch-icon-72-precomposed.png') }}">
     <link rel="apple-touch-icon-precomposed" href="{{ asset('images/ico/apple-touch-icon-57-precomposed.png') }}">
 </head><!--/head-->
-
 <body>
 	<header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
@@ -88,9 +87,12 @@
 							<ul class="nav navbar-nav">
 								<li><a href=""><i class="fa fa-user"></i> Account</a></li>
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html" class="active"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a href="{{ url ('cart')}}" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								@if (Auth::guest())
+								<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
+								@else
+								<li><a  href="{{ route('signout') }}"><i class="fa fa-unlock"></i> Logout</a></li>								
+								@endif
 							</ul>
 						</div>
 					</div>
@@ -115,11 +117,13 @@
 								<li><a href="index.html">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-										<li><a href="product-details.html">Product Details</a></li> 
-										<li><a href="checkout.html" class="active">Checkout</a></li> 
-										<li><a href="cart.html">Cart</a></li> 
-										<li><a href="login.html">Login</a></li> 
+                                        <li><a href="{{url ('/')}}">Products</a></li>
+										<li><a href="{{ url ('cart')}}" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								@if (Auth::guest())
+								<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
+								@else
+								<li><a  href="{{ route('signout') }}"><i class="fa fa-unlock"></i> Logout</a></li>								
+								@endif
                                     </ul>
                                 </li> 
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
@@ -195,45 +199,39 @@
 							<p>Bill To</p>
 							<div class="form-one">
 								<form>
-									<input type="text" placeholder="Company Name">
-									<input type="text" placeholder="Email*">
-									<input type="text" placeholder="Title">
-									<input type="text" placeholder="First Name *">
-									<input type="text" placeholder="Middle Name">
-									<input type="text" placeholder="Last Name *">
-									<input type="text" placeholder="Address 1 *">
-									<input type="text" placeholder="Address 2">
+									<input type="text" placeholder="Customer Name" name="customer_name" id="customer_name">
+									<input type="text" placeholder="Email*" name="email" id="email">
+									<!-- <input type="text" placeholder="Title"> -->
+									<input type="text" placeholder="First Name *" name="first_name" id="first_name">
+									<input type="text" placeholder="Middle Name" name="middle_name" id="middle_name">
+									<input type="text" placeholder="Last Name *" name="last_name" id="last_name">
+									<input type="text" placeholder="Address 1 *" name="address_1" id="address_1">
+									<input type="text" placeholder="Address 2" name="address_2" id="address_2">
 								</form>
 							</div>
 							<div class="form-two">
 								<form>
 									<input type="text" placeholder="Zip / Postal Code *">
-									<select>
+									<select name="country" id="country">
 										<option>-- Country --</option>
-										<option>United States</option>
-										<option>Bangladesh</option>
+										<option>United States</option>										
 										<option>UK</option>
 										<option>India</option>
-										<option>Pakistan</option>
-										<option>Ucrane</option>
-										<option>Canada</option>
+										<option>Pakistan</option>										
 										<option>Dubai</option>
 									</select>
-									<select>
+									<select name="state" id="state">
 										<option>-- State / Province / Region --</option>
-										<option>United States</option>
-										<option>Bangladesh</option>
+										<option>United States</option>										
 										<option>UK</option>
 										<option>India</option>
-										<option>Pakistan</option>
-										<option>Ucrane</option>
-										<option>Canada</option>
+										<option>Pakistan</option>									
 										<option>Dubai</option>
 									</select>
-									<input type="password" placeholder="Confirm password">
-									<input type="text" placeholder="Phone *">
-									<input type="text" placeholder="Mobile Phone">
-									<input type="text" placeholder="Fax">
+									<!-- <input type="password" placeholder="Confirm password"> -->
+									<input type="text" placeholder="Phone *" name="phone" id="phone">
+									<input type="text" placeholder="Mobile Phone" name="mobile_phone" id="mobile_number">
+									<input type="text" placeholder="Fax" name="fax" id="fax">
 								</form>
 							</div>
 						</div>
@@ -241,8 +239,8 @@
 					<div class="col-sm-4">
 						<div class="order-message">
 							<p>Shipping Order</p>
-							<textarea name="message"  placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
-							<label><input type="checkbox"> Shipping to bill address</label>
+							<textarea name="message"  placeholder="Notes about your order, Special Notes for Delivery" rows="16" name="message" id="message"></textarea>
+							<!-- <label><input type="checkbox"> Shipping to bill address</label> -->
 						</div>	
 					</div>					
 				</div>
@@ -264,103 +262,77 @@
 						</tr>
 					</thead>
 					<tbody>
+					<?php $sum_tot_Price = 0; ?>
+				
+
+					
+						@foreach($datas as $data)
 						<tr>
 							<td class="cart_product">
-								<a href=""><img src="{{ asset('images/cart/one.png') }}" alt=""></a>
+								<a href=""><img src="{{url('eshopper/images/'.$data->products->image)}}" alt="" width="100px" height="100px"></a>
 							</td>
 							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
+								<h4><a href="">{{$data->products->name}}</a></h4>
 								<p>Web ID: 1089772</p>
 							</td>
 							<td class="cart_price">
-								<p>$59</p>
+								<input type="hidden" id="price1_{{$data->id}}" value="{{$data->products->price}}" >
+								<p id="price_{{$data->id}}">&#8377; {{$data->products->price}}</p>
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
+									<a class="cart_quantity_down" onclick="decrementValue({{$data->id}})" value="-"> - </a>
+									<input class="cart_quantity_input" type="text" name="quantity" value="{{$data->quantity}}" autocomplete="off" id="number_{{$data->id}}" size="2">
+									<a class="cart_quantity_up" onclick="incrementValue({{$data->id}})" value="+"> + </a>
 								</div>
 							</td>
 							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
+								<p class="cart_total_price" id="price_total_{{$data->id}}">&#8377;{{$data->products->price*$data->quantity}}</p>
+								
+								
+																
+								<?php $sum_tot_Price += $data->products->price * $data->quantity; ?>
+								<input type="hidden" value="{{$sum_tot_Price}}" id="totalprices">
+
+								
+								
 							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+							<td class="cart_delete">								
+								<a href="{{url('cart-destroy/'.$data->id)}}" class="cart_quantity_delete"><i class="fa fa-times"></i></a>
+
+
 							</td>
 						</tr>
 
-						<tr>
-							<td class="cart_product">
-								<a href=""><img src="{{ asset('images/cart/two.png') }}" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772</p>
-							</td>
-							<td class="cart_price">
-								<p>$59</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-						<tr>
-							<td class="cart_product">
-								<a href=""><img src="{{ asset('images/cart/three.png') }}" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772</p>
-							</td>
-							<td class="cart_price">
-								<p>$59</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
+						@endforeach
+
+
+						
+						
+
+
 						<tr>
 							<td colspan="4">&nbsp;</td>
 							<td colspan="2">
-								<table class="table table-condensed total-result">
+								<table class="table table-condensed total-result"  id="myTable">
 									<tr>
 										<td>Cart Sub Total</td>
-										<td>$59</td>
+										<td  >&#8377; <span id="">{{ $sum_tot_Price}}</span></td>
 									</tr>
 									<tr>
 										<td>Exo Tax</td>
-										<td>$2</td>
+										<td id="">&#8377; 150</td>
 									</tr>
 									<tr class="shipping-cost">
 										<td>Shipping Cost</td>
-										<td>Free</td>										
+										<td id="">Free</td>										
 									</tr>
 									<tr>
 										<td>Total</td>
-										<td><span>$61</span></td>
+										<td id=""><span>&#8377;{{ $sum_tot_Price + 150}}</span></td>
 									</tr>
 								</table>
+								
 							</td>
 						</tr>
 					</tbody>
@@ -368,13 +340,17 @@
 			</div>
 			<div class="payment-options">
 					<span>
-						<label><input type="checkbox"> Direct Bank Transfer</label>
+						<label><input type="checkbox" disabled> Bank Transfer</label>
 					</span>
 					<span>
-						<label><input type="checkbox"> Check Payment</label>
+						<input type="hidden" id="payment_option" value="Cash On Delivery">
+						<label><input type="checkbox" name="payment_option"  id=""> Cash On Delivery</label>
 					</span>
 					<span>
-						<label><input type="checkbox"> Paypal</label>
+						<label><input type="checkbox" disabled> Paypal</label>
+					</span>
+					<span>
+						<button class="btn  btn-success " style="margin-left: 52%;" onclick="orderplaced({{$datas}})"> ORDER</button>
 					</span>
 				</div>
 		</div>
@@ -412,7 +388,7 @@
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="{{ asset('images/home/iframe2.png" alt="" />
+										<img src="{{ asset('images/home/iframe2.png') }}" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
@@ -537,10 +513,176 @@
 				</div>
 			</div>
 		</div>
+		<input type="hidden" value="{{ $sum_tot_Price}}" id="sub_total">
+		<input type="hidden" value="150" id="tax">
+		<input type="hidden" value="Free" id="shipping_fee">
+		<input type="hidden" value="{{ $sum_tot_Price + 150}}" id="final_total">
+
+
 		
 	</footer><!--/Footer-->
 	
+	<script>
+		function incrementValue(cart_id) {
 
+			var cartid = 'number_' + cart_id;
+			var cartprice = 'price1_' + cart_id;
+			var carttotatal = 'price_total_' + cart_id;
+			var value = parseInt(document.getElementById(cartid).value, 10);
+			var price1 = document.getElementById(cartprice).value;
+					
+			value = isNaN(value) ? 0 : value;
+			if (value < 10) {
+				value++;
+				document.getElementById(cartid).value = value;		}
+
+			var total = value * price1;
+			var totalAmount =document.getElementById('totalprices').value;
+			var FinalAmount = parseInt(price1) + parseInt( totalAmount);
+			document.getElementById('totalprices').value = FinalAmount;
+
+			console.log('price1== ',price1);
+			console.log('FinalAmount== ',FinalAmount);	
+
+			$.ajax({
+				type: 'post',
+				data: {
+					cart_id: cart_id,
+					item_quantity: value,
+					_token: "{{ csrf_token() }}"
+				},
+				url: "{{ url('cart-update') }}",
+				success: function(data) {
+					document.getElementById(carttotatal).innerHTML = '{{DEFAULT_CURRENCY}}' + total;
+				}
+			})
+		}
+		function decrementValue(cart_id) {
+            var cartid = 'number_' + cart_id;
+            var cartprice = 'price1_' + cart_id;
+            var carttotatal = 'price_total_' + cart_id;
+            var value = parseInt(document.getElementById(cartid).value, 10);
+            var price1 = document.getElementById(cartprice).value;
+            value = isNaN(value) ? 0 : value;
+            if (value > 1) {
+                value--;
+                document.getElementById(cartid).value = value;
+            }
+            var total = value * price1;
+			var totalAmount =document.getElementById('totalprices').value;
+			var FinalAmount = parseInt(price1) - parseInt( totalAmount);
+			document.getElementById('totalprices').value = FinalAmount;
+
+			console.log('price1== ',price1);
+			console.log('FinalAmount== ',FinalAmount);
+            $.ajax({
+                type: 'post',
+                data: {
+                    cart_id: cart_id,
+                    item_quantity: value,
+                    _token: "{{ csrf_token() }}"
+                },
+                url: "{{ url('cart-update') }}",
+                success: function(data) {
+                    document.getElementById(carttotatal).innerHTML = '{{DEFAULT_CURRENCY}}' + total;
+                }
+
+            })
+
+        }
+
+		function itemdelete(id) {
+			// var id=document.getElementById('item').value;	
+			console.log("ssss", id);
+			$.ajax({
+				type: 'post',
+				data: {
+					id: id,
+					_token: "{{ csrf_token() }}"
+				},
+				url: "{{ url('cart-destroy') }}",
+
+			})
+		}
+
+		function orderplaced(product_details) {
+
+			console.log("check",product_details);
+			var customer_name=document.getElementById('customer_name').value;
+			var email=document.getElementById('email').value;
+			var first_name=document.getElementById('first_name').value;	
+			var middle_name=document.getElementById('middle_name').value;
+			var last_name=document.getElementById('last_name').value;
+			var address_1=document.getElementById('address_1').value;
+			var address_2=document.getElementById('address_2').value;	
+			var country=document.getElementById('country').value;
+			var state=document.getElementById('state').value;	
+			var phone=document.getElementById('phone').value;
+			var mobile_number=document.getElementById('mobile_number').value;
+			var fax=document.getElementById('fax').value;	
+			var message=document.getElementById('message').value;			
+			var sub_total=document.getElementById('sub_total').value;
+			var tax=document.getElementById('tax').value;	
+			var shipping_fee=document.getElementById('shipping_fee').value;
+			var final_total=document.getElementById('final_total').value;	
+			// var payment_option=document.getElementById('payment_option').value;	
+
+
+
+
+			console.log("1",customer_name);
+			console.log("1",email);
+			console.log("1",first_name);
+			console.log("1",middle_name);
+			console.log("1",last_name);
+			console.log("1",address_1);
+			console.log("1",address_2);
+			console.log("1",country);
+			console.log("1",state);
+			console.log("1",phone);
+			console.log("1",mobile_number);
+			console.log("1",fax);
+			console.log("1",message);			
+			console.log("1",sub_total);
+			console.log("1",tax);
+			console.log("1",shipping_fee);
+			console.log("1",final_total);
+			
+
+		
+
+
+
+			$.ajax({
+				
+				type: 'post',
+				data: {
+					customer_name: customer_name,					
+					email:email,
+					first_name:first_name,
+					last_name:last_name,
+					middle_name:middle_name,
+					address_1:address_1,
+					address_2:address_2,
+					country:country,
+					state:state,
+					phone:phone,
+					mobile_number:mobile_number,
+					fax:fax,
+					message:message,
+					sub_total:sub_total,
+					tax:tax,
+					shipping_fee:shipping_fee,
+					final_total:final_total,
+					product_details:product_details,					
+					_token: "{{ csrf_token() }}"
+				},
+				
+				url: "{{ url('orderplace') }}",
+
+			})
+		}
+	</script>
 
     <script src="{{ asset('js/jquery.js') }}"></script>
 	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
