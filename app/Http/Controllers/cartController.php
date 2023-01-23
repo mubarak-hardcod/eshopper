@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Redirect;
 class cartController extends Controller
 {
     public function index()
-    {   $datas = carts::all();      
+    {   $cus_id = auth::id();
+        $datas = carts::where('customer_id',$cus_id)->get();      
         return view('cart',compact('datas'));   
     }
 

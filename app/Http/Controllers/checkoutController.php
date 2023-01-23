@@ -19,13 +19,15 @@ class checkoutController extends Controller
 
     public function order()
     {
-        return view('order');
+        $cus_id = auth::id();       
+        $data = orders::where('customer_id',$cus_id)->get();       
+        $order = order_infos::where('order_id', $data[0]->id)->get();    
+        return view('order',compact('order'));
 
     }
 
     public function store(Request $request)
-    {    
-       
+    {           
         $orders = new orders();
         $orders->customer_name = $request->customer_name;
         $orders->email = $request->email;
@@ -57,4 +59,8 @@ class checkoutController extends Controller
         }
         return 1;
     }
+
+
+
+    
 }

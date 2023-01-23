@@ -109,9 +109,9 @@ Route::post('products_delete/{id}', [productsController::class,'destroy'])->name
 // ---------------------------------- orders ------------------------------------------
 
 Route::any('orders_manage', [ordersController::class,'index'])->name('orders_manage');
-Route::get('orders_create', [ordersController::class,'create'])->name('orders_create');
-Route::post('orders_create', [ordersController::class,'store'])->name('orders_create'); 
+// Route::get('orders_create', [ordersController::class,'create'])->name('orders_create');
+Route::post('status', [ordersController::class,'status'])->name('status'); 
 Route::get('orders_detail/{id}', [ordersController::class,'show'])->name('orders_detail');
-Route::get('orders_edit/{id}', [ordersController::class,'edit'])->name('orders_edit');
-Route::post('orders_update/{id}', [ordersController::class,'update'])->name('orders_update');
-Route::post('orders_delete/{id}', [ordersController::class,'destroy'])->name('orders_delete');
+// Route::get('orders_edit/{id}', [ordersController::class,'edit'])->name('orders_edit');
+// Route::post('orders_update/{id}', [ordersController::class,'update'])->name('orders_update');
+// Route::post('orders_delete/{id}', [ordersController::class,'destroy'])->name('orders_delete');

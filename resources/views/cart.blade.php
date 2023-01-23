@@ -89,6 +89,7 @@
 							<ul class="nav navbar-nav">
 								<li><a href=""><i class="fa fa-user"></i> Account</a></li>
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
+								<li><a href="{{url ('order')}}"><i class="fas fa-bell"></i> My Order</a></li>
 								<li><a href="{{url ('checkout')}}" class="active">Checkout</a></li> 
 								<li><a href="" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								@if (Auth::guest())
@@ -473,6 +474,7 @@
 				},
 				url: "{{ url('cart-update') }}",
 				success: function(data) {
+					location.reload();
 					document.getElementById(carttotatal).innerHTML = '{{DEFAULT_CURRENCY}}' + total;
 				}
 
@@ -507,6 +509,7 @@
                 },
                 url: "{{ url('cart-update') }}",
                 success: function(data) {
+					location.reload();
                     document.getElementById(carttotatal).innerHTML = '{{DEFAULT_CURRENCY}}' + total;
                 }
 

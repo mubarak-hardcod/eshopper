@@ -127,7 +127,7 @@
         </ul>
         <a href="#home11" class="list-group-item list-group-item-action bg-light dropdown-toggle" data-toggle="collapse" aria-expanded="false"> Orders</a>
         <ul class="collapse list-unstyled menu" id="home11">
-          <li><a href="{{ url('orders_create/')}}" class="list-group-item list-group-item-action bg-light ">Add Orders </a></li>
+          <!-- <li><a href="{{ url('orders_create/')}}" class="list-group-item list-group-item-action bg-light ">Add Orders </a></li> -->
           <li><a href="{{ url('orders_manage/')}}" class="list-group-item list-group-item-action bg-light ">Orders Products</a></li>
         </ul>
 
@@ -191,6 +191,29 @@
 
   </div>
 
+
+
+
+<script>
+$('#orderstatus').on('change', function() {
+  var order_id = document.getElementById('order_id').value;
+  console.log("id",order_id);
+  var value = document.getElementById('orderstatus').value;
+  console.log("value",value);  
+
+  $.ajax({
+				type: 'post',
+				data: {
+          order_id:order_id,
+					status: value,
+					_token: "{{ csrf_token() }}"
+				},
+				url: "{{ url('status') }}",
+
+			})
+  // alert(value);
+});
+</script>
 
 </body>
 

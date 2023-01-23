@@ -287,14 +287,9 @@
 								</div>
 							</td>
 							<td class="cart_total">
-								<p class="cart_total_price" id="price_total_{{$data->id}}">&#8377;{{$data->products->price*$data->quantity}}</p>
-								
-								
-																
+								<p class="cart_total_price" id="price_total_{{$data->id}}">&#8377;{{$data->products->price*$data->quantity}}</p>															
 								<?php $sum_tot_Price += $data->products->price * $data->quantity; ?>
-								<input type="hidden" value="{{$sum_tot_Price}}" id="totalprices">
-
-								
+								<input type="hidden" value="{{$sum_tot_Price}}" id="totalprices">							
 								
 							</td>
 							<td class="cart_delete">								
@@ -553,6 +548,7 @@
 				},
 				url: "{{ url('cart-update') }}",
 				success: function(data) {
+					location.reload();
 					document.getElementById(carttotatal).innerHTML = '{{DEFAULT_CURRENCY}}' + total;
 				}
 			})
@@ -584,6 +580,7 @@
                 },
                 url: "{{ url('cart-update') }}",
                 success: function(data) {
+					location.reload();
                     document.getElementById(carttotatal).innerHTML = '{{DEFAULT_CURRENCY}}' + total;
                 }
 
@@ -626,32 +623,6 @@
 			var shipping_fee=document.getElementById('shipping_fee').value;
 			var final_total=document.getElementById('final_total').value;	
 			// var payment_option=document.getElementById('payment_option').value;	
-
-
-
-
-			console.log("1",customer_name);
-			console.log("1",email);
-			console.log("1",first_name);
-			console.log("1",middle_name);
-			console.log("1",last_name);
-			console.log("1",address_1);
-			console.log("1",address_2);
-			console.log("1",country);
-			console.log("1",state);
-			console.log("1",phone);
-			console.log("1",mobile_number);
-			console.log("1",fax);
-			console.log("1",message);			
-			console.log("1",sub_total);
-			console.log("1",tax);
-			console.log("1",shipping_fee);
-			console.log("1",final_total);
-			
-
-		
-
-
 
 			$.ajax({
 				

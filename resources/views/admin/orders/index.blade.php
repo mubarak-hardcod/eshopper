@@ -28,11 +28,13 @@
                     <td>{{$data->customer_name}}</td>
                     <td> &#8377;{{$data->final_total}}</td>
                     <td>{{$data->payment_option}}</td>
+                    
                     <td>{{$data->status}}</td>          
                  
                     <td><a href="{{ url('orders_detail/'. $data->id)}}" class="btn btn-info btn-sm">View</a>
-                        <a href="{{ url('orders_edit/'. $data->id)}}" class="btn btn-success btn-sm">Edit</a>
-                        <form id="delete-form-{{ $data->id }}" method="post" action="{{ url('orderss_delete/'.$data->id) }}" style="display: none">
+                        <!-- <a href="{{ url('orders_edit/'. $data->id)}}" class="btn btn-success btn-sm">Edit</a> -->
+
+                        <!-- <form id="delete-form-{{ $data->id }}" method="post" action="{{ url('orderss_delete/'.$data->id) }}" style="display: none">
                         {{ csrf_field() }}
                         {{ method_field('POST') }}
                       </form>
@@ -44,7 +46,7 @@
                           else{
                             event.preventDefault();
                           }"  id='btn_delete' value="{{$data->id}}" class="btn btn-danger btn-sm">Delete</button>
-                     
+                      -->
                     </td>
                 </tr>
                 @endforeach

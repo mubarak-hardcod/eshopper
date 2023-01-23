@@ -140,13 +140,72 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+							<!-- <input type="text" placeholder="Search"/> -->
 						</div>
 					</div>
 				</div>
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
+	<section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="#">Home</a></li>
+				  <li class="active">My Order</li>
+				</ol>
+			</div><!--/breadcrums-->
+
+			
+			<div class="review-payment">
+				<h2>My Order List</h2>
+			</div>
+
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<!-- <td class="image">Item</td> -->
+							<td class="description">Name</td>
+							<td class="price">Price</td>
+							<td class="quantity">Quantity</td>
+							<td class="total">Total</td>
+							<td class="status">Status</td>
+						</tr>
+					</thead>
+					<tbody>	
+						@foreach($order as $data)						
+						<tr>
+							<!-- <td class="cart_product">
+								<a href=""><img src="" alt="" width="100px" height="100px"></a>
+							</td> -->
+							<td class="cart_description">
+								<h4><a href="">{{$data->product}}</a></h4>
+								<p>Web ID: 1089772</p>
+							</td>
+							<td class="cart_price">								
+								<p id="">&#8377;{{$data->price}} </p>
+							</td>							
+							<td class="cart_price">
+								<p class="cart_total_price" id="">{{$data->quantity}} </p>							
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price" id="">{{$data->quantity *$data->price}} </p>	
+							</td>
+							<td class="cart_delete">	
+							<p class="cart_total_price" id="">{{$data->orders->status}} </p>							
+
+								
+							</td>
+						</tr>
+						@endforeach
+
+					</tbody>
+				</table>
+			</div>
+			
+		</div>
+	</section> <!--/#cart_items-->
 
 	
 
