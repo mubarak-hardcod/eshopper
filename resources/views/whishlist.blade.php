@@ -147,6 +147,7 @@
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
+    @if(count($data)>0)
 	<section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
@@ -205,7 +206,14 @@
 				</table>
 			</div>			
 		</div>
-	</section> <!--/#cart_items-->
+	</section> 
+    @else
+    <div style="text-align: center;margin:5%; ">
+				<h1 ><i class="fa fa-info-circle"></i> Wishlist Is Empty</h1>
+				<a class="mb-10 btn btn-primary"  href="{{url ('/')}}">Return To Home</a>
+				</div>
+                @endif
+    <!--/#cart_items-->
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">
 			<div class="container">

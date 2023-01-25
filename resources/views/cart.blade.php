@@ -151,8 +151,8 @@
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
-
-			
+	<?php $sum_tot_Price = 0; ?>
+	@if(count($datas) > 0)
 
 	<section id="cart_items">
 		<div class="container">
@@ -180,8 +180,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php $sum_tot_Price = 0; ?>
-						@if($datas->count() > 1)
+						
+						
 						@foreach($datas as $data)
 						<tr>
 							<td class="cart_product">
@@ -213,14 +213,15 @@
 							</td>
 						</tr>
 						@endforeach
-						@else
+						
 
 
 					</tbody>
 				
 				</table>
-				<h3>Your Cart Is Empty</h3>
-						@endif
+				
+				
+			
 			</div>
 		</div>
 	</section>
@@ -295,6 +296,8 @@
 							<li>Total <span>&#8377;{{ $sum_tot_Price + 150}}</span></li>
 
 						</ul>
+					
+
 						<!-- <a class="btn btn-default update" href="">Update</a> -->
 						<a class="btn btn-default check_out" href="{{url ('checkout')}}">Check Out</a>
 					</div>
@@ -302,6 +305,13 @@
 			</div>
 		</div>
 	</section><!--/#do_action-->
+	@else
+
+	<div style="text-align: center;margin:5%; ">
+	<h1 ><i class="fa fa-info-circle"></i> Cart Is Empty</h1>
+				<a class="mb-10 btn btn-primary" href="{{url ('/')}}">Return To Home</a>
+				</div>
+	@endif
 
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">
