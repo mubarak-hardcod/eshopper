@@ -27,7 +27,18 @@ class checkoutController extends Controller
     }
 
     public function store(Request $request)
-    {           
+    {     
+        $request->validate([
+            'email' => 'required|email',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'address_1' => 'required',
+            'country' => 'required',                      
+            'state' => 'required',
+            'phone' => 'required',
+            
+          ]);   
+
         $orders = new orders();
         $orders->customer_name = $request->customer_name;
         $orders->email = $request->email;
@@ -51,14 +62,32 @@ class checkoutController extends Controller
         foreach($request->product_details as $key => $data)
         {       
             $order_info = new order_infos();
+            // echo $order_info;
             $order_info->order_id = $orders->id;
-            $order_info->product=$request->product_details[$key]['id'];
+            $order_info->product=$request->product_details[$key]['product_id'];
+            // echo $order_info->product;
             $order_info->quantity=$request->product_details[$key]['quantity'];
             $order_info->price=$request->product_details[$key]['products']['price'];            
             $order_info->save();
-        }
+        }         
+            $cart_destroy = carts::where('customer_id',auth::id())->delete(); 
+            
+        
+        return 1;
+   
+    }
+
+    public function destroy(Request $request)
+    {
+        $order = orders::where('id',$request)->get();
+        $order_info = orders::where('order_id',$request)->get();
+        $order->delete();
+        $order_info->delete();
         return 1;
     }
+
+
+
 
 
 

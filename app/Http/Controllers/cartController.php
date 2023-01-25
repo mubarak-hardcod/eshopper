@@ -30,8 +30,7 @@ class cartController extends Controller
     }
 
     public function destroy(Request $request,$id)
-    {
-       
+    {      
         $data = carts::find($id);       
         $data->delete();
         return redirect::back()->withSuccess('You Item Has Deleted Successfully');

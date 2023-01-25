@@ -196,10 +196,13 @@
 
 <script>
 $('#orderstatus').on('change', function() {
-  var order_id = document.getElementById('order_id').value;
-  console.log("id",order_id);
+  var order_id = document.getElementById('order_id').value;  
   var value = document.getElementById('orderstatus').value;
+
+  console.log("id",order_id);
   console.log("value",value);  
+
+
 
   $.ajax({
 				type: 'post',

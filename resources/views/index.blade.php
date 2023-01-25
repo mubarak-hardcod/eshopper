@@ -120,7 +120,7 @@
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="{{url('products/') }}">Products</a></li>										
-										<li><a href="checkout.html">Checkout</a></li> 
+										<li><a href="{{url ('checkout')}}">Checkout</a></li> 
 										<li><a href="{{ url ('cart')}}" class="active"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 										@if (Auth::guest())
 								<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
@@ -131,8 +131,8 @@
                                 </li> 
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
-										<li><a href="blog-single.html">Blog Single</a></li>
+                                        <li><a href="{{url ('blog')}}">Blog List</a></li>
+										<li><a href="{{url ('blog-single')}}">Blog Single</a></li>
                                     </ul>
                                 </li> 
 								<li><a href="404.html">404</a></li>
@@ -153,7 +153,12 @@
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
-	
+				@if(session('success'))
+				<div class="alert alert-success" role="alert"  style="margin-left: 20%; margin-right: 20%; padding-left: 25%;">
+					<h4>{{session('success')}} !!!</h4>
+				</div>
+				@endif
+
 	<section id="slider"><!--slider-->
 		<div class="container">
 			<div class="row">
@@ -983,7 +988,13 @@
 		
 	</footer><!--/Footer-->
 	
-
+	<script>
+		window.setTimeout(function() {
+			$(".alert").fadeTo(500, 0).slideUp(500, function() {
+				$(this).remove();
+			});
+		}, 3000);
+	</script>
   
     <script src="{{ asset('js/jquery.js') }}"></script>
 	<script src="{{ asset('js/bootstrap.min.js') }}"></script>

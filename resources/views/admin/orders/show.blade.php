@@ -112,10 +112,10 @@
                     <td colspan="2">status Change:                     
 
                         <select class="form-control" data-placeholder="Select a Status" style="width: 50%;" aria-hidden="true" name="status" id="orderstatus">
-                        @foreach($order_status as $status)
-                        <option value="Ordered" @if ($data->status == $status->name) selected  @endif >{{$status->name}}</option>
-                        @endforeach
-                        </select> 
+                            @foreach($order_status as $status)
+                            <option value="{{$status->name}}" @if ($data->status == $status->name) selected  @endif >{{$status->name}}</option>
+                            @endforeach
+                            </select> 
                     </td>
 
                 </tr>
@@ -127,7 +127,7 @@
                 </tr>
                 @foreach($datas1 as $product_info)
                 <tr>
-                    <td>{{$product_info->product}} </td>
+                    <td>{{$product_info->products->name}} </td>
                     <td>{{$product_info->quantity}}</td>
                     <td>{{$product_info->price}}</td>
                 </tr>

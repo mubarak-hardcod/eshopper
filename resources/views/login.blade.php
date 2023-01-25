@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Login | E-Shopper</title>
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/prettyPhoto.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/price-range.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Login | E-Shopper</title>
+	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/prettyPhoto.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/price-range.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/animate.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/main.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
-    <!--[if lt IE 9]>
+	<!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
-    <![endif]-->       
-    <link rel="shortcut icon" href="{{ asset('images/ico/favicon.ico') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('images/ico/apple-touch-icon-144-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('images/ico/apple-touch-icon-114-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('images/ico/apple-touch-icon-72-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/ico/apple-touch-icon-57-precomposed.png') }}">
+    <![endif]-->
+	<link rel="shortcut icon" href="{{ asset('images/ico/favicon.ico') }}">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('images/ico/apple-touch-icon-144-precomposed.png') }}">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('images/ico/apple-touch-icon-114-precomposed.png') }}">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('images/ico/apple-touch-icon-72-precomposed.png') }}">
+	<link rel="apple-touch-icon-precomposed" href="{{ asset('images/ico/apple-touch-icon-57-precomposed.png') }}">
 </head><!--/head-->
 
 <body>
@@ -51,7 +52,7 @@
 				</div>
 			</div>
 		</div><!--/header_top-->
-		
+
 		<div class="header-middle"><!--header-middle-->
 			<div class="container">
 				<div class="row">
@@ -70,7 +71,7 @@
 									<li><a href="">UK</a></li>
 								</ul>
 							</div>
-							
+
 							<div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
 									DOLLAR
@@ -88,7 +89,7 @@
 							<ul class="nav navbar-nav">
 								<li><a href=""><i class="fa fa-user"></i> Account</a></li>
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li><a href=""><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								<li><a href="login.html" class="active"><i class="fa fa-lock"></i> Login</a></li>
 							</ul>
@@ -96,8 +97,9 @@
 					</div>
 				</div>
 			</div>
-		</div><!--/header-middle-->
-	
+		</div>
+		<!--/header-middle-->
+
 		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
 				<div class="row">
@@ -114,48 +116,64 @@
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="index.html">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-										<li><a href="product-details.html">Product Details</a></li> 
-										<li><a href="checkout.html">Checkout</a></li> 
-										<li><a href="cart.html">Cart</a></li> 
-										<li><a href="login.html" class="active">Login</a></li> 
-                                    </ul>
-                                </li> 
+									<ul role="menu" class="sub-menu">
+										<li><a href="shop.html">Products</a></li>
+										<li><a href="product-details.html">Product Details</a></li>
+										<li><a href="checkout.html">Checkout</a></li>
+										<li><a href="cart.html">Cart</a></li>
+										<li><a href="login.html" class="active">Login</a></li>
+									</ul>
+								</li>
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
+									<ul role="menu" class="sub-menu">
+										<li><a href="blog.html">Blog List</a></li>
 										<li><a href="blog-single.html">Blog Single</a></li>
-                                    </ul>
-                                </li> 
+									</ul>
+								</li>
 								<li><a href="404.html">404</a></li>
 								<li><a href="contact-us.html">Contact</a></li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-sm-3">
+					<!-- <div class="col-sm-3">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+							<input type="text" placeholder="Search" />
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
-	
+
 	<section id="form"><!--form-->
 		<div class="container">
 			<div class="row">
+				@if(session('success'))
+				<div class="alert alert-success" role="alert" style="margin-left: 10%;margin-right:20%;">
+					<h4>{{session('success')}}</h4>
+				</div>
+				@endif
+
+				@if (session('msg'))
+				<div class="alert alert-danger" role="alert" style="margin-left: 10%;margin-right:20%;">
+				<h4>{{session('msg')}}</h4>
+				</div>
+				@endif
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
 						<h2>Login to your account</h2>
-						<form  method="POST" action="{{ route('login.custom') }}">
-						@csrf
-
-							<input type="email" placeholder="Email"  name="email"/>
+						<form method="POST" action="{{ route('login.custom') }}">
+							@csrf
+							<input type="email" placeholder="Email" name="email" />
+							@if ($errors->has('email'))
+							<span class="text-danger">{{ $errors->first('email') }}</span>
+							@endif
 							<input type="password" placeholder="Password" name="password" />
+							@if ($errors->has('password'))
+							<span class="text-danger">{{ $errors->first('password') }}</span>
+							@endif
 							<span>
-								<input type="checkbox" class="checkbox"> 
+								<input type="checkbox" class="checkbox">
 								Keep me signed in
 							</span>
 							<button type="submit" class="btn btn-default">Login</button>
@@ -168,11 +186,25 @@
 				<div class="col-sm-4">
 					<div class="signup-form"><!--sign up form-->
 						<h2>New User Signup!</h2>
-						<form action="{{ route('register.custom') }}" method="POST"  enctype="multipart/form-data">
-						@csrf
-							<input type="text" placeholder="Name" name="name"/>
-							<input type="email" placeholder="Email Address"  name="email"/>
-							<input type="password" placeholder="Password" name="password"/>
+						<form action="{{ route('register.custom') }}" method="POST" enctype="multipart/form-data">
+							@csrf
+							<input type="text" placeholder="Name" name="name" />
+							@if ($errors->has('name'))
+							<span class="text-danger">{{ $errors->first('name') }}</span>
+							@endif
+							<input type="email" placeholder="Email Address" name="email" />
+							@if ($errors->has('email'))
+							<span class="text-danger">{{ $errors->first('email') }}</span>
+							@endif
+							<input type="password" placeholder="Password" name="passwords" />
+							@if ($errors->has('passwords'))
+							<span class="text-danger">{{ $errors->first('passwords') }}</span>
+							@endif
+							<input type="password" placeholder="Confirm Password" name="confirm_password" />
+							@if ($errors->has('confirm_password'))
+							<span class="text-danger">{{ $errors->first('confirm_password') }}</span>
+							@endif
+
 							<button type="submit" class="btn btn-default">Signup</button>
 						</form>
 					</div><!--/sign up form-->
@@ -180,8 +212,8 @@
 			</div>
 		</div>
 	</section><!--/form-->
-	
-	
+
+
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">
 			<div class="container">
@@ -207,7 +239,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -222,7 +254,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -237,7 +269,7 @@
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -262,7 +294,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="footer-widget">
 			<div class="container">
 				<div class="row">
@@ -324,11 +356,11 @@
 							</form>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">
@@ -337,16 +369,22 @@
 				</div>
 			</div>
 		</div>
-		
-	</footer><!--/Footer-->
-	
 
-  
-    <script src="{{ asset('js/jquery.js') }}"></script>
+	</footer><!--/Footer-->
+
+	<script>
+		window.setTimeout(function() {
+			$(".alert").fadeTo(500, 0).slideUp(500, function() {
+				$(this).remove();
+			});
+		}, 5000);
+	</script>
+	<script src="{{ asset('js/jquery.js') }}"></script>
 	<script src="{{ asset('js/price-range.js') }}"></script>
-    <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
+	<script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
 	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
+	<script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+	<script src="{{ asset('js/main.js') }}"></script>
 </body>
+
 </html>

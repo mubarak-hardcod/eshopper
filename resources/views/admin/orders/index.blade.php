@@ -32,7 +32,7 @@
                     <td>{{$data->status}}</td>          
                  
                     <td><a href="{{ url('orders_detail/'. $data->id)}}" class="btn btn-info btn-sm">View</a>
-                        <!-- <a href="{{ url('orders_edit/'. $data->id)}}" class="btn btn-success btn-sm">Edit</a> -->
+                        <a href="{{ url('generate-invoice/'. $data->id)}}" class="btn btn-success btn-sm">Export</a>
 
                         <!-- <form id="delete-form-{{ $data->id }}" method="post" action="{{ url('orderss_delete/'.$data->id) }}" style="display: none">
                         {{ csrf_field() }}

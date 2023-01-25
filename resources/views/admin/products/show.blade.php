@@ -5,7 +5,7 @@
     <div class="row">
         <h3>Categories Detail</h3>
         
-        <a class="btn btn-primary mb-3 " href="{{ url('category_manage/')}}" role="button" style="margin-left:80%;">Back </a>
+        <a class="btn btn-primary mb-3 " href="{{ url('products_manage/')}}" role="button" style="margin-left:80%;">Back </a>
 
         <table class="table table-bordered">
             <thead>               

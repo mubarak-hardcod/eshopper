@@ -131,8 +131,8 @@
                                 </li> 
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
-										<li><a href="blog-single.html">Blog Single</a></li>
+                                        <li><a href="{{url('blog')}}">Blog List</a></li>
+										<li><a href="{{url('blog-single')}}">Blog Single</a></li>
                                     </ul>
                                 </li> 
 								<li><a href="404.html">404</a></li>
@@ -157,6 +157,12 @@
 	<section>
 		<div class="container">
 			<div class="row">
+					<!-- @if(session('success'))
+                    <div class="alert alert-info">
+                        <h5>{{session('success')}}</h5>
+                    </div>
+                    @endif -->
+                  
 				<div class="col-sm-3">
 					<div class="left-sidebar">
 						<h2>Category</h2>
@@ -737,10 +743,10 @@
                     _token: "{{ csrf_token() }}"
                 },
                 url: "{{ url('cart-add') }}",
-                // success: function(response) {
-                //     $('#addcart').modal('hide');
-                //     employeeList();
-                //     alert(response.message);}
+               	
+				success: function (data) {
+				window.location = '{{ url('cart') }}';
+				},
                 
 
             })

@@ -201,12 +201,25 @@
 								<form>
 									<input type="text" placeholder="Customer Name" name="customer_name" id="customer_name">
 									<input type="text" placeholder="Email*" name="email" id="email">
+									@if ($errors->has('email'))
+									<span class="text-danger">{{ $errors->first('email') }}</span>
+									@endif
 									<!-- <input type="text" placeholder="Title"> -->
 									<input type="text" placeholder="First Name *" name="first_name" id="first_name">
+									@if ($errors->has('first_name'))
+									<span class="text-danger">{{ $errors->first('first_name') }}</span>
+									@endif
 									<input type="text" placeholder="Middle Name" name="middle_name" id="middle_name">
 									<input type="text" placeholder="Last Name *" name="last_name" id="last_name">
+									@if ($errors->has('last_name'))
+									<span class="text-danger">{{ $errors->first('last_name') }}</span>
+									@endif
 									<input type="text" placeholder="Address 1 *" name="address_1" id="address_1">
+									@if ($errors->has('address_1'))
+									<span class="text-danger">{{ $errors->first('address_1') }}</span>
+									@endif
 									<input type="text" placeholder="Address 2" name="address_2" id="address_2">
+									
 								</form>
 							</div>
 							<div class="form-two">
@@ -230,6 +243,9 @@
 									</select>
 									<!-- <input type="password" placeholder="Confirm password"> -->
 									<input type="text" placeholder="Phone *" name="phone" id="phone">
+									@if ($errors->has('phone'))
+									<span class="text-danger">{{ $errors->first('phone') }}</span>
+									@endif
 									<input type="text" placeholder="Mobile Phone" name="mobile_phone" id="mobile_number">
 									<input type="text" placeholder="Fax" name="fax" id="fax">
 								</form>
@@ -624,8 +640,7 @@
 			var final_total=document.getElementById('final_total').value;	
 			// var payment_option=document.getElementById('payment_option').value;	
 
-			$.ajax({
-				
+			$.ajax({				
 				type: 'post',
 				data: {
 					customer_name: customer_name,					
@@ -647,9 +662,11 @@
 					final_total:final_total,
 					product_details:product_details,					
 					_token: "{{ csrf_token() }}"
-				},
-				
+				},				
 				url: "{{ url('orderplace') }}",
+				success: function (data) {
+				window.location = '{{ url('order') }}';
+				},
 
 			})
 		}

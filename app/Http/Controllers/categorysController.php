@@ -64,7 +64,8 @@ class categorysController extends Controller
     
     public function destroy(categorys $categorys,$id)
     {
-        $data = categorys::find($id);       
+        $data = categorys::find($id);
+        echo $data;      
         $data->delete();     
         return redirect(route("category_manage"))->withSuccess('Deleted successfully');
     }

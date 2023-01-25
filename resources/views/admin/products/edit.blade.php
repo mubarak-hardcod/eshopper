@@ -61,7 +61,7 @@
                                   </label>
                             <div class="d-grid mx-auto">
                                 <button type="submit" class="btn btn-success ">Update</button>
-                             <a class="btn btn-primary  " href="{{ url('post_index/')}}" role="button" >Back </a>
+                             <a class="btn btn-primary  " href="{{ url('products_manage/')}}" role="button" >Back </a>
                             </div>                            
                         </form>
                     </div>

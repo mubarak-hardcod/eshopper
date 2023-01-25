@@ -89,8 +89,8 @@
 							<ul class="nav navbar-nav">
 								<li><a href=""><i class="fa fa-user"></i> Account</a></li>
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href=""><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li><a href="{{url ('cart')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								@if (Auth::guest())
 								<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
 								@else
@@ -181,7 +181,6 @@
 								</div>
 								<div id="{{$datas->name}}" class="panel-collapse collapse">
 									<div class="panel-body">
-
 										<ul>
 											@foreach($sub_category as $data)
 											@if($data->category_name==$datas->id)
@@ -190,7 +189,6 @@
 											<li style="display: none;"><a href="#"> </a></li>
 											@endif
 											@endforeach
-
 										</ul>
 									</div>
 								</div>
@@ -254,8 +252,12 @@
 								</div>
 								<div class="choose">
 									<ul class="nav nav-pills nav-justified">
-										<li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-										<li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
+									<!-- <button type="submit" class="add-to-cart" value="Add" onclick="addwhishlist({{$data->id}})"><i class="fa fa-plus-square"></i>Add to wishlist</button>
+									<button type="submit" class="add-to-cart" value="Add"><i class="fa fa-plus-square"></i>Add to compare</button> -->
+										<li><button type="submit" class="add-to-cart" value="Add" onclick="addwhishlist({{$data->id}})"><i class="fa fa-plus-square"></i>Add to wishlist</button></li>
+										<li><button type="submit" class="add-to-cart" value="Add"><i class="fa fa-plus-square"></i>Add to compare</button></li>
+										<!-- <li><a href="" onclick="addwhishlist({{$data->id}})"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+										<li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li> -->
 									</ul>
 								</div>
 							</div>
@@ -417,8 +419,7 @@
 								<input type="text" placeholder="Your email address" />
 								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
 								<p>Get the most recent updates from <br />our site and be updated your self...</p>
-							</form>
-						</div>
+							</form>						</div>
 					</div>
 
 				</div>
@@ -448,11 +449,29 @@
 					_token: "{{ csrf_token() }}"
 				},
 				url: "{{ url('cart-add') }}",
-				success: function(response) {
-					$('#addcart').modal('hide');
-					employeeList();
-					alert(response.message);
-				}
+				
+				success: function (data) {
+				window.location = '{{ url('cart') }}';
+				},
+
+
+			})
+		}
+
+		function addwhishlist(id) {
+			console.log(id)
+			var product_id = $('.addcart #product_id').val();
+			$.ajax({
+				type: 'post',
+				data: {
+					product_id: id,
+					_token: "{{ csrf_token() }}"
+				},
+				url: "{{ url('whishlist-add') }}",
+				
+				success: function (data) {
+				// window.location = '{{ url('cart') }}';
+				},
 
 
 			})

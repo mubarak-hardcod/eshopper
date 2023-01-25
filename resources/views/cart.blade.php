@@ -152,6 +152,8 @@
 		</div><!--/header-bottom-->
 	</header><!--/header-->
 
+			
+
 	<section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
@@ -160,6 +162,11 @@
 					<li class="active">Shopping Cart</li>
 				</ol>
 			</div>
+			@if (session('success'))
+            <div class="alert alert-success wishsuccess" role="alert"  style="margin-left: 20%; margin-right: 20%; padding-left: 24%; ">
+					<h4>{{session('success')}}</h4>
+			</div>
+            @endif
 			<div class="table-responsive cart_info">
 				<table class="table table-condensed">
 					<thead>
@@ -174,6 +181,7 @@
 					</thead>
 					<tbody>
 						<?php $sum_tot_Price = 0; ?>
+						@if($datas->count() > 1)
 						@foreach($datas as $data)
 						<tr>
 							<td class="cart_product">
@@ -205,8 +213,14 @@
 							</td>
 						</tr>
 						@endforeach
+						@else
+
+
 					</tbody>
+				
 				</table>
+				<h3>Your Cart Is Empty</h3>
+						@endif
 			</div>
 		</div>
 	</section>
@@ -529,6 +543,14 @@
 
 			})
 		}
+
+	
+		window.setTimeout(function() {
+			$(".alert").fadeTo(300, 0).slideUp(500, function() {
+				$(this).remove();
+			});
+		}, 3000);
+	</script>
 	</script>
 	<script src="{{ asset('js/jquery.js') }}"></script>
 	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
