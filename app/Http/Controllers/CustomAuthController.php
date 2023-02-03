@@ -23,14 +23,11 @@ class CustomAuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]); 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password]))
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password,'role'=>"Customer"]))
         {
             return redirect()->intended('/')->withSuccess('You Are Successfully Login');
         }  
-        // $credentials = $request->only('email', 'password');
-        // if (Auth::attempt($credentials)) {
-        //     return redirect()->intended('/')->withSuccess('Signed in');
-        // }  
+      
         return  redirect()->back()->with('msg', 'Email or Password is incorrect');
     }
 

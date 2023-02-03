@@ -17,7 +17,7 @@ class productsController extends Controller
 {
     public function index()
     {
-        $datas = products::all();       
+        $datas = products::paginate(10);       
         return view('admin.products.index', compact('datas'));
     }
 
@@ -123,6 +123,6 @@ class productsController extends Controller
     {
         $data = products::find($id);
         $data->delete();
-        return redirect(route("products_manage"))->withSuccess('Deleted successfully');
+        return redirect(route("products_manage"))->with('unsuccess','Deleted successfully');
     }
 }

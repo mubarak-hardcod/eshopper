@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,6 +22,33 @@
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('images/ico/apple-touch-icon-114-precomposed.png') }}">
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('images/ico/apple-touch-icon-72-precomposed.png') }}">
 	<link rel="apple-touch-icon-precomposed" href="i{{ asset('mages/ico/apple-touch-icon-57-precomposed.png') }}">
+	<style>
+        .toast {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+			z-index:1;
+            transform: translateY(100%);
+            opacity: 0;
+            transition:
+                opacity 500ms,
+                transform 500ms;
+        }
+        .toast.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-body {
+            margin: 28px;
+            padding: 20px 24px;
+            font-size: larger;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: lightgreen;
+            color: darkblue;
+            border-radius: 4px;
+        }
+    </style>
 </head><!--/head-->
 
 <body>
@@ -144,8 +170,8 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-							<form action="{{url ('search')}}" method="POST" enctype="multipart/form-data">
-								@csrf
+							<form action="{{url ('search')}}" method="GET" enctype="multipart/form-data">
+								
 								<input type="text" placeholder="Search" name='search' />
 								<button type="submit" class="btn btn-success" style="display: none;">search</button>
 							</form>
@@ -154,14 +180,35 @@
 				</div>
 			</div>
 		</div>
-	</header>
+	</header>	
+    <div class="toast" id="toast">
+        <div class="toast-body">
+ 			<p>Item Successfully Added To Cart</p>
+        </div>
+    </div>	
+    <div class="toast" id="toast1">
+        <div class="toast-body">
+ 			<p>Item Successfully Added To Wishlist</p>
+        </div>
+    </div>	
+	
 
 	<section id="advertisement">
 		<div class="container">
 			<img src="{{ asset('images/shop/advertisement.jpg') }}" alt="" />
 		</div>
 	</section>
+				@if(session('success'))
+				<div class="alert alert-success" role="alert" style="margin-left: 10%;margin-right:20%;">
+					<h4>{{session('success')}}</h4>
+				</div>
+				@endif
 
+				@if (session('unsuccess'))
+				<div class="alert alert-danger" role="alert" style="margin-left: 10%;margin-right:20%;">
+				<h4>{{session('unsuccess')}}</h4>
+				</div>
+				@endif
 	<section>
 		<div class="container">
 			<div class="row">
@@ -436,10 +483,22 @@
 		</div>
 
 	</footer><!--/Footer-->
+	<!-- <script>
+        const toast = document.getElementById('toast');
+
+        document.getElementById('showBtn').addEventListener('click', function() {
+            // toast.querySelector('.toast-body').innerHTML = "Toast notification is working ...";
+            toast.classList.add('visible');
+        });
+        document.getElementById('hideBtn').addEventListener('click', function() {
+            toast.classList.remove('visible');
+        });
+    </script> -->
 	<script>
 		function addcart(id) {
 			console.log(id)
 			var product_id = $('.addcart #product_id').val();
+			const toast = document.getElementById('toast');
 			$.ajax({
 				type: 'post',
 				data: {
@@ -450,17 +509,20 @@
 				},
 				url: "{{ url('cart-add') }}",
 				
-				success: function (data) {
-				window.location = '{{ url('cart') }}';
+			 success: function (data) {
+				toast.classList.add('visible');	
+
+				window.setTimeout(function() { 			
+					toast.classList.remove('visible');
+				}, 3000);		
 				},
-
-
 			})
 		}
 
 		function addwhishlist(id) {
 			console.log(id)
 			var product_id = $('.addcart #product_id').val();
+			const toast = document.getElementById('toast1');
 			$.ajax({
 				type: 'post',
 				data: {
@@ -470,13 +532,23 @@
 				url: "{{ url('whishlist-add') }}",
 				
 				success: function (data) {
-				// window.location = '{{ url('cart') }}';
-				},
+				toast.classList.add('visible');	
 
+				window.setTimeout(function() { 			
+					toast.classList.remove('visible');
+				}, 3000);		
+				},
 
 			})
 		}
+		// window.setTimeout(function() {
+        //     $(".toast").fadeTo(500, 0).slideUp(500, function() {
+        //         $(this).remove();
+        //     });
+        // }, 3000);
 	</script>
+	
+
 
 
 	<script src="{{ asset('js/jquery.js') }}"></script>

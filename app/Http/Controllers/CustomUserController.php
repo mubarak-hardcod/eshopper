@@ -17,7 +17,7 @@ class CustomUserController extends Controller
   }   
    public function index()
     {      
-        $users = User::all();
+        $users = User::paginate(10);
         return view('admin.users.index',compact('users'));
                
     }   
@@ -33,14 +33,15 @@ class CustomUserController extends Controller
     $request->validate([
       'name' => 'required',
       'email' => 'required|email|unique:users',
-      'password' => 'required|min:6',      
+      'password' => 'required|min:6', 
+      'confirm_password' => 'required|same:password'         
     ]);
-
   
     $_users = new User;
     $_users->name = $request->name;
     $_users->email = $request->email;
     $_users->password = Hash::make( $request->password);
+    $_users->role=$request->role;
     $_users->save();
     return redirect("user_manage")->withSuccess('You have created successfully');
   }   
@@ -74,6 +75,6 @@ class CustomUserController extends Controller
     {
       $data = User::find($id);     
       $data->delete();     
-      return redirect(route("user_manage"))->withSuccess('Deleted successfully');
+      return redirect(route("user_manage"))->with('unsuccess','Deleted successfully');
     }
 }

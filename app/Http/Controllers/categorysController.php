@@ -11,7 +11,7 @@ class categorysController extends Controller
 {
     public function index()
     {
-        $datas = categorys::all();
+        $datas = categorys::paginate(10);
         return view('admin.categorys.index',compact('datas'));   
     }
 
@@ -67,6 +67,6 @@ class categorysController extends Controller
         $data = categorys::find($id);
         echo $data;      
         $data->delete();     
-        return redirect(route("category_manage"))->withSuccess('Deleted successfully');
+        return redirect(route("category_manage"))->with('unsuccess','Deleted successfully');
     }
 }

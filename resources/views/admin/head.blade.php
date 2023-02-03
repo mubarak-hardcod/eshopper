@@ -6,30 +6,17 @@
 <head>
 
   <meta charset="utf-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
   <title>Laravel</title>
-
-
   <link rel="stylesheet" href="{{ asset('cssf/style.css') }}">
-
-
-
   <!-- Fonts -->
 
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-
-
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet"></head>
   <style>
     body {
       overflow-x: hidden;
@@ -123,7 +110,7 @@
         <a href="#home9" class="list-group-item list-group-item-action bg-light dropdown-toggle" data-toggle="collapse" aria-expanded="false"> Products</a>
         <ul class="collapse list-unstyled menu" id="home9">
           <li><a href="{{ url('products_create/')}}" class="list-group-item list-group-item-action bg-light ">Add Products </a></li>
-          <li><a href="{{ url('products_manage/')}}" class="list-group-item list-group-item-action bg-light ">Post Products</a></li>
+          <li><a href="{{ url('products_manage/')}}" class="list-group-item list-group-item-action bg-light ">Products List</a></li>
         </ul>
         <a href="#home11" class="list-group-item list-group-item-action bg-light dropdown-toggle" data-toggle="collapse" aria-expanded="false"> Orders</a>
         <ul class="collapse list-unstyled menu" id="home11">
@@ -152,8 +139,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
+            <li class="nav-item ">
               <!-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
+              <a class="btn btn-danger" href="{{ route('admin-signout') }}"> Logout</a>
           
             </li>
 
@@ -216,6 +204,14 @@ $('#orderstatus').on('change', function() {
 			})
   // alert(value);
 });
+
+window.setTimeout(function() {
+            $(".alert").fadeTo(500, 0).slideUp(500, function() {
+                $(this).remove();
+            });
+        }, 3000);
+
+
 </script>
 
 </body>

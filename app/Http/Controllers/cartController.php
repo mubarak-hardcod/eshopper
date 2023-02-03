@@ -19,14 +19,20 @@ class cartController extends Controller
     {
         // $request->validate([
         //     'name' => 'required|unique:brands',                       
-        // ]);                  
+        // ]);   
+        $cus_id = auth::id();
+        if (carts::where('customer_id',$cus_id)->where('product_id', '=',$request->product_id )->count() > 0) {
+            return 0;
+      
+        }
         $cus_id = auth::id();       
         $carts = new carts();
         $carts->product_id = $request->product_id;
         $carts->customer_id = $cus_id;
         $carts->quantity = $request->quantity;               
-        $carts->save();          
-        return redirect::back()->withSuccess('You Item Has Added Successfully');
+        $carts->save();
+        return 1;
+        
     }
 
     public function destroy(Request $request,$id)

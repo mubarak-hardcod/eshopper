@@ -1,9 +1,14 @@
 @extends('admin.head')
 @section('content')
 <div class="container mt-3">
-@if(session('success'))
-                    <div class="alert alert-info">
+                    @if(session('success'))
+                    <div class="alert alert-success">
                         <h5>{{session('success')}}</h5>
+                    </div>
+                    @endif
+                    @if(session('unsuccess'))
+                    <div class="alert alert-danger">
+                        <h5>{{session('unsuccess')}}</h5>
                     </div>
                     @endif
     <div class="row">
@@ -46,6 +51,7 @@
                 @endforeach
             </tbody>
         </table>
+        {!! $users->links() !!}
     </div>
 </div>
 

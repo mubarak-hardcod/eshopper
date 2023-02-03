@@ -13,7 +13,7 @@ class subcategorysController extends Controller
    
     public function index()
     {
-        $datas =sub_categorys::all();
+        $datas =sub_categorys::paginate(10);
         return view('admin.sub_categorys.index',compact('datas'));   
     }
 
@@ -69,6 +69,6 @@ class subcategorysController extends Controller
     {
         $data =sub_categorys::find($id);       
         $data->delete();     
-        return redirect(route("sub_categorys_manage"))->withSuccess('Deleted successfully');
+        return redirect(route("sub_categorys_manage"))->with('unsuccess','Deleted successfully');
     }
 }

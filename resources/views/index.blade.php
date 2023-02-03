@@ -142,8 +142,7 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-						<form action="{{url ('search')}}" method="POST" enctype="multipart/form-data">
-                            @csrf			
+						<form action="{{url ('search')}}" method="GET" enctype="multipart/form-data">                           		
 							<input type="text" placeholder="Search" name='search'/>
 							<button type="submit" class="btn btn-success" style="display: none;">search</button>					
 						</form>

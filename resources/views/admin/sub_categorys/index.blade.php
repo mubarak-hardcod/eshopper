@@ -2,10 +2,15 @@
 @section('content')
 <div class="container mt-3">
     @if(session('success'))
-    <div class="alert alert-info">
-    <h5>{{session('success')}}</h5>
+    <div class="alert alert-info">    
+    <h5>{{session('success')}}  <button type="button" class="close" data-dismiss="alert" aria-label="Close"></h5>
     </div>
-    @endif              
+    @endif     
+    @if(session('unsuccess'))
+                    <div class="alert alert-danger">
+                        <h5>{{session('unsuccess')}}</h5>
+                    </div>
+                    @endif         
     <div class="row">   
         <h3>Categories Manage</h3>
         <table id="example1" class="table table-bordered">
@@ -48,6 +53,7 @@
                 @endforeach
             </tbody>
         </table>
+        {!! $datas->links() !!}
     </div>
 </div>
 
