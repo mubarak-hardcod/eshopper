@@ -30,28 +30,14 @@
                 <tr>
                     <td>{{ $loop->index + 1 }}</td>
                     <td>{{$data->customer_id}}</td>
-                    <td>{{$data->customer_name}}</td>
+                    <td>{{$data->cus_order_id}}</td>
                     <td> &#8377;{{$data->final_total}}</td>
                     <td>{{$data->payment_option}}</td>
                     
                     <td>{{$data->status}}</td>          
                  
                     <td><a href="{{ url('orders_detail/'. $data->id)}}" class="btn btn-info btn-sm">View</a>
-                        <a href="{{ url('generate-invoice/'. $data->id)}}" class="btn btn-success btn-sm">Export</a>
-
-                        <!-- <form id="delete-form-{{ $data->id }}" method="post" action="{{ url('orderss_delete/'.$data->id) }}" style="display: none">
-                        {{ csrf_field() }}
-                        {{ method_field('POST') }}
-                      </form>
-                        <button type="submit" name="delete" onclick=" if(confirm('Are you sure, You Want to delete this?'))
-                          {
-                            event.preventDefault();
-                            document.getElementById('delete-form-{{ $data->id }}').submit();
-                          }
-                          else{
-                            event.preventDefault();
-                          }"  id='btn_delete' value="{{$data->id}}" class="btn btn-danger btn-sm">Delete</button>
-                      -->
+                        <a href="{{ url('generate-invoice/'. $data->id)}}" class="btn btn-success btn-sm">Export</a>                       
                     </td>
                 </tr>
                 @endforeach
@@ -59,7 +45,5 @@
         </table>
     </div>
 </div>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-
 @endsection

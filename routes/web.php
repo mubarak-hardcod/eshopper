@@ -16,6 +16,9 @@ use App\Http\Controllers\brandController;
 use App\Http\Controllers\subcategorysController;
 use App\Http\Controllers\productsController;
 
+use App\Http\Controllers\MailController;
+
+
 
 
 Route::get('/a', function () {return view('welcome');});
@@ -57,6 +60,8 @@ Route::group(['middleware' => ['role']], function () {
     Route::get('checkout', [checkoutController::class, 'index']);
     Route::get('order', [checkoutController::class, 'order']);
     Route::post('orderplace', [checkoutController::class, 'store']);
+    Route::post('order-cancel/{id}', [checkoutController::class,'ordercancel'])->name('order-cancel');
+
     // ----------------------- whishlist------------------------------------
     Route::get('whishlist', [whishlistController::class, 'index']);
     Route::post('whishlist-add', [whishlistController::class, 'store']);
@@ -119,7 +124,13 @@ Route::group(['middleware' => ['adminlogin']], function () {
     // Route::get('orders_edit/{id}', [ordersController::class,'edit'])->name('orders_edit');
     // Route::post('orders_update/{id}', [ordersController::class,'update'])->name('orders_update');
     // Route::post('orders_delete/{id}', [ordersController::class,'destroy'])->name('orders_delete');
-    Route::get('generate-invoice/{id}',[ordersController::class,'invoice']);
+   
 
 });
+Route::get('generate-invoice/{id}',[ordersController::class,'invoice']);
+
+// mail sending
+Route::get('sendbasicemail',[MailController::class,'basic_email']);
+Route::get('sendhtmlemail',[MailController::class,'html_email']);
+Route::get('sendattachmentemail',[MailController::class,'attachment_email']);
 

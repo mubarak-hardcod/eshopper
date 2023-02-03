@@ -35,11 +35,14 @@ class ordersController extends Controller
     }
 
     public function invoice($id){    
-            if(orders::where('id',$id)->exists()){$orders = orders::find($id);$order_info = order_infos::where('order_id',$orders->id)->get();           
-            $data = ['orders' => $orders, ];
-            $data1=['order_info' => $order_info, ];
-            $pdf = PDF::loadview('admin.orders.invoice',$data,$data1);
-            return $pdf->download('flowershop.pdf');
+            if(orders::where('id',$id)->exists())
+            {
+                $orders = orders::find($id);
+                $order_info = order_infos::where('order_id',$orders->id)->get();           
+                $data = ['orders' => $orders, ];
+                $data1=['order_info' => $order_info, ];
+                $pdf = PDF::loadview('admin.orders.invoice',$data,$data1);
+                return $pdf->download('flowershop.pdf');
              }
             else{
                return redirect()->back()->with('message','No order found');

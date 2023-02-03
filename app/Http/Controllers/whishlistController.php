@@ -19,13 +19,20 @@ class whishlistController extends Controller
         // return view('whishlist');
     }
     public function store(Request $request)
-    {       
+    {      
+        
+        if(whishlists::where('product_id',$request->product_id)->where('customer_id',auth::id())->exists())
+        {
+            return 2;
+        }
+            else{
         $whistlist = new whishlists();
         $whistlist->product_id = $request->product_id;
         $whistlist->customer_id = auth::id();                      
         $whistlist->save();          
         
-        return redirect::back()->withSuccess('You Item Has Added Whishlist');
+        return 1;
+            }
     }
 
     public function destroy(Request $request,$id)

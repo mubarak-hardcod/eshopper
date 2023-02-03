@@ -19,19 +19,23 @@ class cartController extends Controller
     {
         // $request->validate([
         //     'name' => 'required|unique:brands',                       
-        // ]);   
-        $cus_id = auth::id();
-        if (carts::where('customer_id',$cus_id)->where('product_id', '=',$request->product_id )->count() > 0) {
-            return 0;
-      
+        // ]);  
+    
+        if(carts::where('product_id',$request->product_id)->where('customer_id',auth::id())->exists())
+        {
+            return 2;
+            
         }
-        $cus_id = auth::id();       
-        $carts = new carts();
-        $carts->product_id = $request->product_id;
-        $carts->customer_id = $cus_id;
-        $carts->quantity = $request->quantity;               
-        $carts->save();
-        return 1;
+            else{
+                $cus_id = auth::id();       
+            $carts = new carts();
+            $carts->product_id = $request->product_id;
+            $carts->customer_id = $cus_id;
+            $carts->quantity = $request->quantity;               
+            $carts->save();
+            return 1; 
+            }      
+        
         
     }
 

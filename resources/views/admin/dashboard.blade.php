@@ -4,9 +4,11 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12">
-            <h4>Dashboard</h4>
+        <div class=" col-12 mb-2">
+           <h4>DASHBOARD</h4>
+
         </div>
+       
         <div class="col-3">
             <div class="card mb-3 widget-content">
                 <div class="widget-content-outer">
@@ -16,7 +18,7 @@
                             <!-- <div class="widget-subheading">Last year expenses</div> -->
                         </div>
                         <div class="widget-content-right">
-                            <div class="widget-numbers text-success">1896</div>
+                            <div class="widget-numbers text-success">{{$users}}</div>
                         </div>
                     </div>
                 </div>
@@ -32,7 +34,7 @@
                             <!-- <div class="widget-subheading">Last year expenses</div> -->
                         </div>
                         <div class="widget-content-right">
-                            <div class="widget-numbers text-success">1896</div>
+                            <div class="widget-numbers text-success">{{$brands}}</div>
                         </div>
                     </div>
                 </div>
@@ -48,7 +50,7 @@
                             <!-- <div class="widget-subheading">Last year expenses</div> -->
                         </div>
                         <div class="widget-content-right">
-                            <div class="widget-numbers text-success">1896</div>
+                            <div class="widget-numbers text-success">{{$categorys}}</div>
                         </div>
                     </div>
                 </div>
@@ -64,7 +66,7 @@
                             <!-- <div class="widget-subheading">Last year expenses</div> -->
                         </div>
                         <div class="widget-content-right">
-                            <div class="widget-numbers text-success">1896</div>
+                            <div class="widget-numbers text-success">{{$sub_categorys}}</div>
                         </div>
                     </div>
                 </div>
@@ -80,7 +82,7 @@
                             <!-- <div class="widget-subheading">Last year expenses</div> -->
                         </div>
                         <div class="widget-content-right">
-                            <div class="widget-numbers text-success">1896</div>
+                            <div class="widget-numbers text-success">{{$products}}</div>
                         </div>
                     </div>
                 </div>
@@ -96,7 +98,7 @@
                             <!-- <div class="widget-subheading">Last year expenses</div> -->
                         </div>
                         <div class="widget-content-right">
-                            <div class="widget-numbers text-success">1896</div>
+                            <div class="widget-numbers text-success">{{$orders}}</div>
                         </div>
                     </div>
                 </div>

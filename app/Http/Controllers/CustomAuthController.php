@@ -20,10 +20,10 @@ class CustomAuthController extends Controller
     public function customLogin(Request $request)
     {      
         $request->validate([
-            'email' => 'required|email',
+            'emails' => 'required|email',
             'password' => 'required|min:6',
         ]); 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password,'role'=>"Customer"]))
+        if (Auth::attempt(['email' => $request->emails, 'password' => $request->password,'role'=>"Customer"]))
         {
             return redirect()->intended('/')->withSuccess('You Are Successfully Login');
         }  

@@ -1,19 +1,33 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Hash;
 use Session;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\carts;
+use App\Models\categorys;
+use App\Models\sub_categorys;
+use App\Models\orders;
+use App\Models\brands;
+use App\Models\products;
+
+
 
 class CustomUserController extends Controller
 {
     
   public function dashboard()
   {      
-      return view('admin.dashboard');     
+      $users = User::count();     
+      $carts = carts::count();
+      $categorys = categorys::count();
+      $sub_categorys = sub_categorys::count();
+      $brands = brands::count();
+      $products = products::count();
+      $orders = orders::count();
+      return view('admin.dashboard',compact('users','carts','categorys','sub_categorys','brands','products','orders'));     
   }   
    public function index()
     {      

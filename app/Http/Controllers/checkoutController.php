@@ -20,14 +20,15 @@ class checkoutController extends Controller
     public function order()
     {
         $cus_id = auth::id();       
-        $data = orders::where('customer_id',$cus_id)->get();       
-        $order = order_infos::where('order_id', $data[0]->id)->get();    
+        $order = orders::where('customer_id',$cus_id)->get();      
+          
         return view('order',compact('order'));
 
     }
 
     public function store(Request $request)
     {     
+       
         $request->validate([
             'email' => 'required|email',
             'first_name' => 'required',
@@ -35,11 +36,11 @@ class checkoutController extends Controller
             'address_1' => 'required',
             'country' => 'required',                      
             'state' => 'required',
-            'phone' => 'required',
-            
-          ]);   
+            'phone' => 'required',            
+          ]);  
 
-        $orders = new orders();
+        $orders = new orders();     
+        $orders->cus_order_id="COD"."-".rand(00000,99999).rand(0000,9999);
         $orders->customer_name = $request->customer_name;
         $orders->email = $request->email;
         $orders->first_name = $request->first_name;
@@ -85,6 +86,18 @@ class checkoutController extends Controller
         $order_info->delete();
         return 1;
     }
+
+ 
+
+    public function ordercancel(orders $orders, $id)
+    {
+        $data = orders::find($id);
+        $data->status="Cancelled";
+        $data->save();
+        return redirect("order")->with('success','Your Order Cancelled');
+    }
+
+
 
 
 
